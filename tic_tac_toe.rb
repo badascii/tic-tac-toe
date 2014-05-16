@@ -124,5 +124,3 @@ game = Game.new
 
 game.run
 
-# game.print_grid(game.grid)
-
