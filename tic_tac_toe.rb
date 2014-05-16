@@ -8,6 +8,7 @@ class Game
   O = 2
 
   def initialize
+    puts "\nWelcome!"
     @grid = Game.grid
     @player_mark = self.choose_mark
     @cpu_mark = "O"
@@ -113,21 +114,23 @@ class Game
   end
 
   def check_horizontal(mark)
-    @grid.each do |row|
-      current_row = []
-      row.each do |m|
-        current_row << m
-      end
-      if current_row.uniq.length == 1
-        return true
-      else
-        return false
-      end
+    if (@grid[0][0] == mark) && (@grid[0][1] == mark) && (@grid[0][2] == mark)
+      return true
+    elsif (@grid[1][0] == mark) && (@grid[1][1] == mark) && (@grid[1][2] == mark)
+      return true
+    elsif (@grid[2][0] == mark) && (@grid[2][1] == mark) && (@grid[2][2] == mark)
+      return true
+    else
+      return false
     end
   end
 
   def check_vertical(mark)
-    if ((@grid[0][0] && @grid[1][0] && @grid[2][0]) || (@grid[0][1] && @grid[1][1] && @grid[2][1]) || (@grid[0][2] && @grid[1][2] && @grid[2][2])) == mark
+    if (@grid[0][0] == mark) && (@grid[1][0] == mark) && (@grid[2][0] == mark)
+      return true
+    elsif (@grid[0][1] == mark) && (@grid[1][1] == mark) && (@grid[2][1] == mark)
+      return true
+    elsif (@grid[0][2] == mark) && (@grid[1][2] == mark) && (@grid[2][2] == mark)
       return true
     else
       return false
@@ -135,7 +138,9 @@ class Game
   end
 
   def check_diagonal(mark)
-    if ((@grid[0][0] && @grid[1][1] && @grid[2][2]) || (@grid[0][2] && @grid[1][1] && @grid[2][0])) == mark
+    if (@grid[0][0] == mark) && (@grid[1][1] == mark) && (@grid[2][2] == mark)
+      return true
+    elsif (@grid[0][2] == mark) && (@grid[1][1] == mark) && (@grid[2][0] == mark)
       return true
     else
       return false
@@ -155,7 +160,7 @@ class Game
 
   def print_results
     if self.check_for_winner == @player_mark
-      puts "\nYou win!\n\nCongratulations!!!\n"
+      puts "\nYou win!\n\nCongratulations!!!\n\n"
     elsif self.check_for_winner == @cpu_mark
       puts "\nYou lose.\n\nlol\n"
     else
