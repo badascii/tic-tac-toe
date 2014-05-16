@@ -9,8 +9,8 @@ class Game
 
   def initialize
     @grid = Game.grid
-    @player_symbol = self.choose_symbol
-    @cpu_symbol = "O"
+    @player_mark = self.choose_mark
+    @cpu_mark = "O"
   end
 
   def self.grid
@@ -45,8 +45,8 @@ class Game
     end
   end
 
-  def choose_symbol
-    print "Enter either X or O and press enter to play using that symbol: "
+  def choose_mark
+    print "Enter either X or O and press enter to play using that mark: "
     player_input = gets.downcase.chomp!
 
     case player_input
@@ -58,7 +58,7 @@ class Game
       return O
     else
       print "Invalid input. Please enter either X or O and press enter: "
-      self.choose_symbol
+      self.choose_mark
     end
   end
 
@@ -75,74 +75,84 @@ class Game
   def place_move(grid_location)
     case grid_location
     when "1"
-      @grid[0][0] = @player_symbol
+      @grid[0][0] = @player_mark
       return @grid
     when "2"
-      @grid[0][1] = @player_symbol
+      @grid[0][1] = @player_mark
       return @grid
     when "3"
-      @grid[0][2] = @player_symbol
+      @grid[0][2] = @player_mark
       return @grid
     when "4"
-      @grid[1][0] = @player_symbol
+      @grid[1][0] = @player_mark
       return @grid
     when "5"
-      @grid[1][1] = @player_symbol
+      @grid[1][1] = @player_mark
       return @grid
     when "6"
-      @grid[1][2] = @player_symbol
+      @grid[1][2] = @player_mark
       return @grid
     when "7"
-      @grid[2][0] = @player_symbol
+      @grid[2][0] = @player_mark
       return @grid
     when "8"
-      @grid[2][1] = @player_symbol
+      @grid[2][1] = @player_mark
       return @grid
     when "9"
-      @grid[2][2] = @player_symbol
+      @grid[2][2] = @player_mark
       return @grid
     else
       puts "Invalid entry. Please enter a number from 1-9."
       self.player_input
-      self.place_move(grid_location, @player_symbol)
+      self.place_move(grid_location, @player_mark)
     end
   end
 
-  def check_horizontal(symbol)
-    if ((@grid[0][0] && @grid[0][1] && @grid[0][2]) || (@grid[1][0] && @grid[1][1] && @grid[1][2]) || (@grid[2][0] && @grid[2][1] && @grid[2][2])) == symbol
+  def check_horizontal()
+    @grid.each do |row|
+      current_row = []
+      row.each do |mark|
+        current_row << mark
+      end
+      if current_row.uniq.length == 1
+        return true
+      else
+        return false
+      end
+    end
+  end
+
+  def check_vertical(mark)
+    if ((@grid[0][0] && @grid[1][0] && @grid[2][0]) || (@grid[0][1] && @grid[1][1] && @grid[2][1]) || (@grid[0][2] && @grid[1][2] && @grid[2][2])) == mark
       return true
     else
       return false
     end
   end
 
-  def check_vertical(symbol)
-    if ((@grid[0][0] && @grid[1][0] && @grid[2][0]) || (@grid[0][1] && @grid[1][1] && @grid[2][1]) || (@grid[0][2] && @grid[1][2] && @grid[2][2])) == symbol
+  def check_diagonal(mark)
+    if ((@grid[0][0] && @grid[1][1] && @grid[2][2]) || (@grid[0][2] && @grid[1][1] && @grid[2][0])) == mark
       return true
     else
       return false
     end
   end
 
-  def check_diagonal(symbol)
-    if ((@grid[0][0] && @grid[1][1] && @grid[2][2]) || (@grid[0][2] && @grid[1][1] && @grid[2][0])) == symbol
-      return true
-    else
-      return false
-    end
+  def game_over?
+    return true unless (@grid[0].contain?(0) || @grid[1].contain?(0) || @grid[2].contain?(0))
+    return false
   end
 
   def victory
-
   end
 
-  def check_for_win(symbol)
-    if self.check_horizontal(@player_symbol) || self.check_vertical(@player_symbol) || self.check_diagonal(@player_symbol)
+  def check_for_win
+    if self.check_horizontal(@player_mark) || self.check_vertical(@player_mark) || self.check_diagonal(@player_mark)
       puts "You win!!!"
-    elsif self.check_horizontal(@cpu_symbol) || self.check_vertical(@cpu_symbol) || self.check_diagonal(@cpu_symbol)
+    elsif self.check_horizontal(@cpu_mark) || self.check_vertical(@cpu_mark) || self.check_diagonal(@cpu_mark)
       puts "CPU beat ya. Really?"
     else
-      return false
+      puts "Stalemate!"
     end
   end
 
@@ -154,10 +164,14 @@ class Game
       player_action = self.player_input
       self.place_move(player_action)
       self.print_grid(@grid)
-      self.check_for_win
+
+      if self.game_over?
+        self.check_for_win
+      else
+        return
+      end
     end
   end
-
 end
 
 game = Game.new
