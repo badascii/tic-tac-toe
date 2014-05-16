@@ -10,6 +10,7 @@ class Game
   def initialize
     @grid = Game.grid
     @player_symbol = self.choose_symbol
+    @cpu_symbol = "O"
   end
 
   def self.grid
@@ -98,7 +99,7 @@ class Game
       @grid[2][1] = @player_symbol
       return @grid
     when "9"
-      @grid[2][0] = @player_symbol
+      @grid[2][2] = @player_symbol
       return @grid
     else
       puts "Invalid entry. Please enter a number from 1-9."
@@ -115,23 +116,34 @@ class Game
     end
   end
 
-  def check_vertical
-    if ((@grid[0][0] && @grid[0][1] && @grid[0][2]) || (@grid[1][0] && @grid[1][1] && @grid[1][2]) || (@grid[2][0] && @grid[2][1] && @grid[2][2])) == symbol
+  def check_vertical(symbol)
+    if ((@grid[0][0] && @grid[1][0] && @grid[2][0]) || (@grid[0][1] && @grid[1][1] && @grid[2][1]) || (@grid[0][2] && @grid[1][2] && @grid[2][2])) == symbol
       return true
     else
       return false
     end
   end
 
-  def check_diagonal
-    if ((@grid[0][0] && @grid[0][1] && @grid[0][2]) || (@grid[1][0] && @grid[1][1] && @grid[1][2]) || (@grid[2][0] && @grid[2][1] && @grid[2][2])) == symbol
+  def check_diagonal(symbol)
+    if ((@grid[0][0] && @grid[1][1] && @grid[2][2]) || (@grid[0][2] && @grid[1][1] && @grid[2][0])) == symbol
       return true
     else
       return false
     end
   end
 
-  def check_for_win
+  def victory
+
+  end
+
+  def check_for_win(symbol)
+    if self.check_horizontal(@player_symbol) || self.check_vertical(@player_symbol) || self.check_diagonal(@player_symbol)
+      puts "You win!!!"
+    elsif self.check_horizontal(@cpu_symbol) || self.check_vertical(@cpu_symbol) || self.check_diagonal(@cpu_symbol)
+      puts "CPU beat ya. Really?"
+    else
+      return false
+    end
   end
 
   def run
