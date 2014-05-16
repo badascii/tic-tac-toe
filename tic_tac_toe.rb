@@ -7,6 +7,8 @@ class Game
   X = 1
   O = 2
   VALID_INPUT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  LEGEND = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+
 
   def initialize
     puts "\nWelcome!"
@@ -21,8 +23,7 @@ class Game
 
   def self.print_legend
     puts "\nGrid Legend\n"
-    legend = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
-    legend.each do |row|
+    LEGEND.each do |row|
       row.each do |position|
         print "|" + position + "|"
       end
