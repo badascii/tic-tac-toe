@@ -142,32 +142,47 @@ class Game
     end
   end
 
-  def game_over?
+  def grid_full?
     return true unless (@grid[0].include?(0) || @grid[1].include?(0) || @grid[2].contain?(0))
     return false
   end
 
+  def game_over?
+    return true if self.check_for_winner == (@player_mark || @cpu_mark)
+    return true if grid_full?
+    return false
+  end
+
+  def print_results
+    if self.check_for_winner == @player_mark
+      puts "\nYou win!\n\nCongratulations!!!\n"
+    elsif self.check_for_winner == @cpu_mark
+      puts "\nYou lose.\n\nlol\n"
+    else
+      puts "\nStalemate!\n\nToo bad, so sad.\n"
+    end
+  end
+
   def check_for_winner
     if self.check_horizontal(@player_mark) || self.check_vertical(@player_mark) || self.check_diagonal(@player_mark)
-      puts "You win!!!"
+      return @player_mark
     elsif self.check_horizontal(@cpu_mark) || self.check_vertical(@cpu_mark) || self.check_diagonal(@cpu_mark)
-      puts "CPU beat ya. Really?"
+      return @cpu_mark
     else
-      puts "Stalemate!"
+      return false
     end
   end
 
   def run
     Game.print_legend
-    unless game_over?
+    until self.game_over?
       self.place_move(self.player_input)
       self.print_grid(@grid)
     end
-    self.check_for_winner
+    self.print_results
   end
 end
 
 game = Game.new
 
 game.run
-
