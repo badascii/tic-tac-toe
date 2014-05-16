@@ -45,7 +45,7 @@ class Game
   end
 
   def choose_symbol
-    print "Enter X or O and press enter to play using that symbol: "
+    print "Enter either X or O and press enter to play using that symbol: "
     player_input = gets.downcase.chomp!
 
     case player_input
@@ -107,6 +107,33 @@ class Game
     end
   end
 
+  def check_horizontal(symbol)
+    if ((@grid[0][0] && @grid[0][1] && @grid[0][2]) || (@grid[1][0] && @grid[1][1] && @grid[1][2]) || (@grid[2][0] && @grid[2][1] && @grid[2][2])) == symbol
+      return true
+    else
+      return false
+    end
+  end
+
+  def check_vertical
+    if ((@grid[0][0] && @grid[0][1] && @grid[0][2]) || (@grid[1][0] && @grid[1][1] && @grid[1][2]) || (@grid[2][0] && @grid[2][1] && @grid[2][2])) == symbol
+      return true
+    else
+      return false
+    end
+  end
+
+  def check_diagonal
+    if ((@grid[0][0] && @grid[0][1] && @grid[0][2]) || (@grid[1][0] && @grid[1][1] && @grid[1][2]) || (@grid[2][0] && @grid[2][1] && @grid[2][2])) == symbol
+      return true
+    else
+      return false
+    end
+  end
+
+  def check_for_win
+  end
+
   def run
     Game.print_legend
 
@@ -115,6 +142,7 @@ class Game
       player_action = self.player_input
       self.place_move(player_action)
       self.print_grid(@grid)
+      self.check_for_win
     end
   end
 
