@@ -6,6 +6,7 @@ class Game
 
   X = 1
   O = 2
+  VALID_INPUT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
   def initialize
     puts "\nWelcome!"
@@ -56,7 +57,7 @@ class Game
       puts "\nYou have chosen O.\n"
       return O
     else
-      print "Invalid input. Please enter either X or O and press enter: "
+      print "Invalid entry. Please enter either X or O and press enter: "
       self.choose_mark
     end
   end
@@ -68,48 +69,59 @@ class Game
       player = "O"
     end
     print "\nEnter a number from 1-9 to place an #{player} there: "
-    player_turn = gets.chomp!
-    if player_turn =~ /[1-9]/
-      return player_turn
-    else
-      puts "Invalid entry. Please enter a number from 1-9."
+    Integer(gets) rescue nil
+  end
+
+  def check_invalid_move(grid_position)
+    if (grid_position == X) || (grid_position == O)
+      puts "That position is already taken. Please select a different one."
       self.player_input
+    else
+      return
     end
   end
 
-  def place_move(grid_location)
-    case grid_location
-    when "1"
-      @grid[0][0] = @player_mark
+  def place_move(input_integer, mark)
+    case input_integer
+    when 1
+      self.check_invalid_move(@grid[0][0])
+      @grid[0][0] = mark
       return @grid
-    when "2"
-      @grid[0][1] = @player_mark
+    when 2
+      self.check_invalid_move(@grid[0][1])
+      @grid[0][1] = mark
       return @grid
-    when "3"
-      @grid[0][2] = @player_mark
+    when 3
+      self.check_invalid_move(@grid[0][2])
+      @grid[0][2] = mark
       return @grid
-    when "4"
-      @grid[1][0] = @player_mark
+    when 4
+      self.check_invalid_move(@grid[1][0])
+      @grid[1][0] = mark
       return @grid
-    when "5"
-      @grid[1][1] = @player_mark
+    when 5
+      self.check_invalid_move(@grid[1][1])
+      @grid[1][1] = mark
       return @grid
-    when "6"
-      @grid[1][2] = @player_mark
+    when 6
+      self.check_invalid_move(@grid[1][2])
+      @grid[1][2] = mark
       return @grid
-    when "7"
-      @grid[2][0] = @player_mark
+    when 7
+      self.check_invalid_move(@grid[2][0])
+      @grid[2][0] = mark
       return @grid
-    when "8"
-      @grid[2][1] = @player_mark
+    when 8
+      self.check_invalid_move(@grid[2][1])
+      @grid[2][1] = mark
       return @grid
-    when "9"
-      @grid[2][2] = @player_mark
+    when 9
+      self.check_invalid_move(@grid[2][2])
+      @grid[2][2] = mark
       return @grid
     else
-      puts "Invalid entry. Please enter a number from 1-9."
+      puts "\nInvalid entry. Please enter an integer from 1-9."
       self.player_input
-      self.place_move(grid_location, @player_mark)
     end
   end
 
@@ -181,7 +193,7 @@ class Game
   def run
     Game.print_legend
     until self.game_over?
-      self.place_move(self.player_input)
+      self.place_move(self.player_input, @player_mark)
       self.print_grid(@grid)
     end
     self.print_results
