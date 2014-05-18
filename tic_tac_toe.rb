@@ -14,7 +14,11 @@ class Game
     puts "\nWelcome!"
     @grid = Game.grid
     @player_mark = self.choose_mark
-    @cpu_mark = "O"
+    if @player_mark = X
+      @cpu_mark = O
+    else
+      @cpu_mark = X
+    end
   end
 
   def self.grid
@@ -22,7 +26,8 @@ class Game
   end
 
   def self.print_legend
-    puts "\nGrid Legend\n"
+    puts "\nGrid Legend"
+    puts "-----------\n"
     LEGEND.each do |row|
       row.each do |position|
         print "|" + position + "|"
@@ -48,7 +53,7 @@ class Game
   end
 
   def choose_mark
-    print "\nEnter either X or O and press enter to play using that mark: "
+    print "\nWhich mark would you like to play as? Select X or O and press enter: "
     player_input = gets.downcase.chomp!
     case player_input
     when "x"
@@ -69,7 +74,7 @@ class Game
     else
       player = "O"
     end
-    print "\nEnter a number from 1-9 to place an #{player} there: "
+    print "\nYour turn. Enter a number from 1-9 to place an #{player} there: "
     Integer(gets) rescue nil
   end
 
@@ -124,6 +129,10 @@ class Game
       puts "\nInvalid entry. Please enter an integer from 1-9."
       self.player_input
     end
+  end
+
+  def cpu_turn
+
   end
 
   def check_horizontal(mark)
@@ -196,6 +205,8 @@ class Game
     until self.game_over?
       self.place_move(self.player_input, @player_mark)
       self.print_grid(@grid)
+      # self.cpu_turn
+      # self.print_grid
     end
     self.print_results
   end
