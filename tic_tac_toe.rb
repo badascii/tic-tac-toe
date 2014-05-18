@@ -36,8 +36,8 @@ class Game
     end
   end
 
-  def print_grid(grid)
-    grid.each do |row|
+  def print_grid
+    @grid.each do |row|
       row.each do |position|
         case position
         when X
@@ -204,7 +204,7 @@ class Game
     Game.print_legend
     until self.game_over?
       self.place_move(self.player_input, @player_mark)
-      self.print_grid(@grid)
+      self.print_grid
       # self.cpu_turn
       # self.print_grid
     end
