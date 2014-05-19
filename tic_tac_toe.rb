@@ -83,7 +83,7 @@ class Game
       puts "That position is already taken. Please select a different one."
       self.player_input
     else
-      return
+      return nil
     end
   end
 
@@ -132,7 +132,32 @@ class Game
   end
 
   def cpu_turn
+    if @grid[1][1] == 0
+      @grid[1][1] = @cpu_mark
+    elsif @grid[0][0]
 
+    end
+  end
+
+  #  |1||2||3|
+  #  |4||5||6|
+  #  |7||8||9|
+  #
+   [0][0] [0][1] [0][2]
+
+   [1][0] [1][1] [1][2]
+
+   [2][0] [2][1] [2][2]
+
+  def cpu_defend
+    if @grid[0][0] == @player_mark
+      if @grid[0][1] == @player_mark
+        @grid[0][2] == @player_mark
+      elsif @grid[0][2] == @player_mark
+        @grid[0][1] == @player_mark
+      end
+
+    end
   end
 
   def check_horizontal(mark)
