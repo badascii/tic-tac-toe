@@ -131,12 +131,15 @@ class Game
     end
   end
 
+  def space_taken?
+
+  end
+
   def cpu_turn
     if @grid[1][1] == 0
       @grid[1][1] = @cpu_mark
-    elsif @grid[0][0]
-
     end
+    self.cpu_defend
   end
 
   #  |1||2||3|
@@ -152,11 +155,18 @@ class Game
   def cpu_defend
     if @grid[0][0] == @player_mark
       if @grid[0][1] == @player_mark
-        @grid[0][2] == @player_mark
+        @grid[0][2] == @cpu_mark
       elsif @grid[0][2] == @player_mark
-        @grid[0][1] == @player_mark
+        @grid[0][1] == @cpu_mark
+      elsif @grid[1][1] == @player_mark
+        @grid[2][2] == @cpu_mark
+      elsif @grid[2][2] == @player_mark
+        @grid[1][1] == @cpu_mark
+      elsif @grid[1][0] == @player_mark
+        @grid[2][0] == @cpu_mark
+      elsif @grid[2][0] == @player_mark
+        @grid[1][0] == @cpu_mark
       end
-
     end
   end
 
