@@ -154,15 +154,31 @@ class Game
 
   #  [2][0] [2][1] [2][2]
 
+  # TODO: add conditionals so cpu only makes 1 move per turn
   def cpu_defend
-    self.check_position_1
-    self.check_position_2
-    self.check_position_3
-    self.check_position_4
-    self.check_position_6
-    self.check_position_7
-    self.check_position_8
-    self.check_position_9
+    if self.check_position_1
+      return
+    elsif self.check_position_2
+      return
+    elsif self.check_position_3
+      return
+    elsif self.check_position_4
+      return
+    elsif self.check_position_6
+      return
+    elsif self.check_position_7
+      return
+    elsif self.check_position_8
+      return
+    elsif self.check_position_9
+      return
+    else
+      self.cpu_place_move
+    end
+  end
+
+  def cpu_place_move
+
   end
 
   def check_position_1
@@ -174,7 +190,7 @@ class Game
       elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
         @grid[0][0] = @cpu_mark
       else
-        return
+        return false
       end
     end
   end
@@ -188,7 +204,7 @@ class Game
       elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
         @grid[0][1] = @cpu_mark
       else
-        return
+        return false
       end
     end
   end
@@ -202,7 +218,7 @@ class Game
       elsif (@grid[1][2] == @grid[2][2]) && (@grid[1][2] != 0)
         @grid[0][2] = @cpu_mark
       else
-        return
+        return false
       end
     end
   end
@@ -214,7 +230,7 @@ class Game
       elsif (@grid[1][1] == @grid[1][2]) && (@grid[1][2] != 0)
         @grid[1][0] = @cpu_mark
       else
-        return
+        return false
       end
     end
   end
@@ -226,7 +242,7 @@ class Game
       elsif (@grid[1][0] == @grid[1][1]) && (@grid[1][0] != 0)
         @grid[1][2] = @cpu_mark
       else
-        return
+        return false
       end
     end
   end
@@ -238,7 +254,7 @@ class Game
       elsif (@grid[2][1] == @grid[2][2]) && (@grid[2][1] != 0)
         @grid[2][0] = @cpu_mark
       else
-        return
+        return false
       end
     end
   end
@@ -250,7 +266,7 @@ class Game
       elsif (@grid[2][0] == @grid[2][2]) && (@grid[2][0] != 0)
         @grid[2][1] = @cpu_mark
       else
-        return
+        return false
       end
     end
   end
@@ -262,7 +278,7 @@ class Game
       elsif (@grid[2][0] == @grid[2][1]) && (@grid[2][0] != 0)
         @grid[2][2] = @cpu_mark
       else
-        return
+        return false
       end
     end
   end
