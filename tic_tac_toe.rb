@@ -37,6 +37,7 @@ class Game
   end
 
   def print_grid
+    puts
     @grid.each do |row|
       row.each do |position|
         case position
@@ -80,7 +81,7 @@ class Game
 
   def check_invalid_move(grid_position)
     if (grid_position == X) || (grid_position == O)
-      puts "That position is already taken. Please select a different one."
+      puts "\nThat position is already taken. Please select a different one."
       self.player_input
     else
       return nil
@@ -138,8 +139,10 @@ class Game
   def cpu_turn
     if @grid[1][1] == 0
       @grid[1][1] = @cpu_mark
+    else
+      self.cpu_defend
     end
-    self.cpu_defend
+    puts "\nComputer turn:\n"
   end
 
   #  |1||2||3|
@@ -241,8 +244,8 @@ class Game
     until self.game_over?
       self.place_move(self.player_input, @player_mark)
       self.print_grid
-      # self.cpu_turn
-      # self.print_grid
+      self.cpu_turn
+      self.print_grid
     end
     self.print_results
   end
