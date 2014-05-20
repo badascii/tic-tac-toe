@@ -146,13 +146,14 @@ class Game
   #  |4||5||6|
   #  |7||8||9|
   #
-   [0][0] [0][1] [0][2]
+  #  [0][0] [0][1] [0][2]
 
-   [1][0] [1][1] [1][2]
+  #  [1][0] [1][1] [1][2]
 
-   [2][0] [2][1] [2][2]
+  #  [2][0] [2][1] [2][2]
 
   def cpu_defend
+    # TODO: refactor this so it checks blank spots for loss conditions instead of checking player-occupied spots
     if @grid[0][0] == @player_mark
       if @grid[0][1] == @player_mark
         @grid[0][2] == @cpu_mark
