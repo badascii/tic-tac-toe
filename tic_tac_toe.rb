@@ -58,10 +58,10 @@ class Game
     case player_input
     when "x"
       puts "\nYou have chosen X.\n"
-      return X
+      @player_mark = X
     when "o"
       puts "\nYou have chosen O.\n"
-      return O
+      @player_mark = O
     else
       print "Invalid entry. Please enter either X or O and press enter: "
       self.choose_mark
@@ -154,7 +154,6 @@ class Game
 
   #  [2][0] [2][1] [2][2]
 
-  # TODO: add conditionals so cpu only makes 1 move per turn
   def cpu_defend
     if self.check_position_1
       return
