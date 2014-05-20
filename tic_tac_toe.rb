@@ -155,7 +155,17 @@ class Game
   #  [2][0] [2][1] [2][2]
 
   def cpu_defend
-    # check position 1
+    self.check_position_1
+    self.check_position_2
+    self.check_position_3
+    self.check_position_4
+    self.check_position_6
+    self.check_position_7
+    self.check_position_8
+    self.check_position_9
+  end
+
+  def check_position_1
     if @grid[0][0] == 0
       if (@grid[0][1] == @grid[0][2]) && (@grid[0][1] != 0)
         @grid[0][0] = @cpu_mark
@@ -163,93 +173,98 @@ class Game
         @grid[0][0] = @cpu_mark
       elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
         @grid[0][0] = @cpu_mark
+      else
+        return
       end
-    # check position 2
-    elsif @grid[0][1] == 0
+    end
+  end
+
+  def check_position_2
+    if @grid[0][1] == 0
       if (@grid[0][0] == @grid[0][2]) && (@grid[0][2] != 0)
         @grid[0][1] = @cpu_mark
       elsif (@grid[1][1] == @grid[2][1]) && (@grid[2][1] != 0)
         @grid[0][1] = @cpu_mark
       elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
         @grid[0][1] = @cpu_mark
+      else
+        return
       end
-    # check position 3
-    elsif @grid[0][2] == 0
+    end
+  end
+
+  def check_position_3
+    if @grid[0][2] == 0
       if (@grid[0][0] == @grid[0][1]) && (@grid[0][1] != 0)
         @grid[0][2] = @cpu_mark
       elsif (@grid[1][1] == @grid[2][0]) && (@grid[2][0] != 0)
         @grid[0][2] = @cpu_mark
       elsif (@grid[1][2] == @grid[2][2]) && (@grid[1][2] != 0)
         @grid[0][2] = @cpu_mark
-      end
-    # check position 4
-    elsif @grid[1][0] == 0
-      if (@grid[0][0] == @grid[2][0]) && (@grid[2][0] != 0)
-        @grid[1][0] = @cpu_mark
-      elsif (@grid[1][1] == @grid[1][2]) && (@grid[1][2] != 0)
-        @grid[1][0] = @cpu_mark
-      end
-    # check position 6
-    elsif @grid[1][2] == 0
-      if (@grid[0][2] == @grid[2][2]) && (@grid[0][2] != 0)
-        @grid[1][2] = @cpu_mark
-      elsif (@grid[1][0] == @grid[1][1]) && (@grid[1][0] != 0)
-        @grid[1][2] = @cpu_mark
-      end
-    # check position 7
-    elsif @grid[2][0] == 0
-      if (@grid[0][0] == @grid[1][0]) && (@grid[1][0] != 0)
-        @grid[2][0] = @cpu_mark
-      elsif (@grid[2][1] == @grid[2][2]) && (@grid[2][1] != 0)
-        @grid[2][0] = @cpu_mark
-      end
-    # check position 8
-    elsif @grid[2][1] == 0
-      if (@grid[0][1] == @grid[1][1]) && (@grid[0][1] != 0)
-        @grid[2][1] = @cpu_mark
-      elsif (@grid[2][0] == @grid[2][2]) && (@grid[2][0] != 0)
-        @grid[2][1] = @cpu_mark
-      end
-    # check position 9
-    elsif @grid[2][2] == 0
-      if (@grid[0][2] == @grid[1][2]) && (@grid[0][2] != 0)
-        @grid[2][2] = @cpu_mark
-      elsif (@grid[2][0] == @grid[2][1]) && (@grid[2][0] != 0)
-        @grid[2][2] = @cpu_mark
+      else
+        return
       end
     end
   end
 
-  def check_position_1
-
-  end
-
-  def check_position_2
-
-  end
-
-  def check_position_3
-
-  end
-
   def check_position_4
-
+    if @grid[1][0] == 0
+      if (@grid[0][0] == @grid[2][0]) && (@grid[2][0] != 0)
+        @grid[1][0] = @cpu_mark
+      elsif (@grid[1][1] == @grid[1][2]) && (@grid[1][2] != 0)
+        @grid[1][0] = @cpu_mark
+      else
+        return
+      end
+    end
   end
 
   def check_position_6
-
+    if @grid[1][2] == 0
+      if (@grid[0][2] == @grid[2][2]) && (@grid[0][2] != 0)
+        @grid[1][2] = @cpu_mark
+      elsif (@grid[1][0] == @grid[1][1]) && (@grid[1][0] != 0)
+        @grid[1][2] = @cpu_mark
+      else
+        return
+      end
+    end
   end
 
   def check_position_7
-
+    if @grid[2][0] == 0
+      if (@grid[0][0] == @grid[1][0]) && (@grid[1][0] != 0)
+        @grid[2][0] = @cpu_mark
+      elsif (@grid[2][1] == @grid[2][2]) && (@grid[2][1] != 0)
+        @grid[2][0] = @cpu_mark
+      else
+        return
+      end
+    end
   end
 
   def check_position_8
-
+    if @grid[2][1] == 0
+      if (@grid[0][1] == @grid[1][1]) && (@grid[0][1] != 0)
+        @grid[2][1] = @cpu_mark
+      elsif (@grid[2][0] == @grid[2][2]) && (@grid[2][0] != 0)
+        @grid[2][1] = @cpu_mark
+      else
+        return
+      end
+    end
   end
 
   def check_position_9
-
+    if @grid[2][2] == 0
+      if (@grid[0][2] == @grid[1][2]) && (@grid[0][2] != 0)
+        @grid[2][2] = @cpu_mark
+      elsif (@grid[2][0] == @grid[2][1]) && (@grid[2][0] != 0)
+        @grid[2][2] = @cpu_mark
+      else
+        return
+      end
+    end
   end
 
   def check_horizontal_victory(mark)
@@ -313,7 +328,7 @@ class Game
     elsif self.check_horizontal_victory(@cpu_mark) || self.check_vertical_victory(@cpu_mark) || self.check_diagonal_victory(@cpu_mark)
       return @cpu_mark
     else
-      return nil
+      return
     end
   end
 
