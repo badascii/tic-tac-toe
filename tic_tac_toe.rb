@@ -9,7 +9,6 @@ class Game
   VALID_INPUT = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   LEGEND = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 
-
   def initialize
     puts "\nWelcome!"
     @grid = Game.grid
@@ -185,47 +184,37 @@ class Game
       end
     # check position 4
     elsif @grid[1][0] == 0
-      if (@grid[0][1] == @grid[0][2]) && (@grid[0][1] != 0)
+      if (@grid[0][0] == @grid[2][0]) && (@grid[2][0] != 0)
         @grid[1][0] = @cpu_mark
-      elsif (@grid[1][1] == @grid[2][2]) && (@grid[1][1] != 0)
+      elsif (@grid[1][1] == @grid[1][2]) && (@grid[1][2] != 0)
         @grid[1][0] = @cpu_mark
-      elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
-        @grid[1][0] == @cpu_mark
       end
     # check position 6
     elsif @grid[1][2] == 0
-      if (@grid[0][1] == @grid[0][2]) && (@grid[0][1] != 0)
+      if (@grid[0][2] == @grid[2][2]) && (@grid[0][2] != 0)
         @grid[1][2] = @cpu_mark
-      elsif (@grid[1][1] == @grid[2][2]) && (@grid[1][1] != 0)
-        @grid[1][2] = @cpu_mark
-      elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
+      elsif (@grid[1][0] == @grid[1][1]) && (@grid[1][0] != 0)
         @grid[1][2] = @cpu_mark
       end
     # check position 7
     elsif @grid[2][0] == 0
-      if (@grid[0][1] == @grid[0][2]) && (@grid[0][1] != 0)
+      if (@grid[0][0] == @grid[1][0]) && (@grid[1][0] != 0)
         @grid[2][0] = @cpu_mark
-      elsif (@grid[1][1] == @grid[2][2]) && (@grid[1][1] != 0)
-        @grid[2][0] = @cpu_mark
-      elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
+      elsif (@grid[2][1] == @grid[2][2]) && (@grid[2][1] != 0)
         @grid[2][0] = @cpu_mark
       end
     # check position 8
     elsif @grid[2][1] == 0
-      if (@grid[0][1] == @grid[0][2]) && (@grid[0][1] != 0)
+      if (@grid[0][1] == @grid[1][1]) && (@grid[0][1] != 0)
         @grid[2][1] = @cpu_mark
-      elsif (@grid[1][1] == @grid[2][2]) && (@grid[1][1] != 0)
-        @grid[2][1] = @cpu_mark
-      elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
+      elsif (@grid[2][0] == @grid[2][2]) && (@grid[2][0] != 0)
         @grid[2][1] = @cpu_mark
       end
     # check position 9
     elsif @grid[2][2] == 0
-      if (@grid[0][1] == @grid[0][2]) && (@grid[0][1] != 0)
+      if (@grid[0][2] == @grid[1][2]) && (@grid[0][2] != 0)
         @grid[2][2] = @cpu_mark
-      elsif (@grid[1][1] == @grid[2][2]) && (@grid[1][1] != 0)
-        @grid[2][2] = @cpu_mark
-      elsif (@grid[1][0] == @grid[2][0]) && (@grid[1][0] != 0)
+      elsif (@grid[2][0] == @grid[2][1]) && (@grid[2][0] != 0)
         @grid[2][2] = @cpu_mark
       end
     end
@@ -298,7 +287,7 @@ class Game
   end
 
   def grid_full?
-    return true unless (@grid[0].include?(0) || @grid[1].include?(0) || @grid[2].contain?(0))
+    return true unless (@grid[0].include?(0) || @grid[1].include?(0) || @grid[2].include?(0))
     return false
   end
 
@@ -328,16 +317,17 @@ class Game
     end
   end
 
-  def run
-    Game.print_legend
-    until self.game_over?
-      self.place_move(self.player_input, @player_mark)
-      self.print_grid
-      self.cpu_turn
-      self.print_grid
-    end
-    self.print_results
+def run
+  Game.print_legend
+  until self.game_over?
+    self.place_move(self.player_input, @player_mark)
+    self.print_grid
+    self.cpu_turn
+    self.print_grid
   end
+  self.print_results
+end
+
 end
 
 game = Game.new
