@@ -11,7 +11,7 @@ class Game
 
   def initialize
     puts "\nWelcome!"
-    @grid = Game.grid
+    @grid = grid
     choose_mark
     if @player_mark = X
       @cpu_mark = O
@@ -20,11 +20,11 @@ class Game
     end
   end
 
-  def self.grid
+  def grid
     return [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
   end
 
-  def self.print_legend
+  def print_legend
     puts "\nGrid Legend"
     puts "-----------\n"
     LEGEND.each do |row|
@@ -81,7 +81,7 @@ class Game
   def check_invalid_move(grid_position)
     if (grid_position == X) || (grid_position == O)
       puts "\nThat position is already taken. Please select a different one."
-      self.player_input
+      player_input
     else
       return nil
     end
@@ -319,9 +319,9 @@ class Game
   end
 
   def print_results
-    if self.check_for_winner == @player_mark
+    if heck_for_winner == @player_mark
       puts "\nYou win!\n\nCongratulations!!!\n\n"
-    elsif self.check_for_winner == @cpu_mark
+    elsif check_for_winner == @cpu_mark
       puts "\nYou lose.\n\nlol\n"
     else
       puts "\nStalemate!\n\nToo bad, so sad.\n"
@@ -339,7 +339,7 @@ class Game
   end
 
 def run
-  Game.print_legend
+  print_legend
   until game_over?
     place_move(player_input, @player_mark)
     print_grid
