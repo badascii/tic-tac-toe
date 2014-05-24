@@ -3,11 +3,11 @@ class Game
 # blank = 0
   X = 1
   O = 2
-  GRID = {a1: 0, a2: 0, a3: 0,
-          b1: 0, b2: 0, b3: 0,
-          c1: 0, c2: 0, c3: 0 }
+  GRID = {a1: 0, b1: 0, c1: 0,
+          a2: 0, b2: 0, c2: 0,
+          a3: 0, b3: 0, c3: 0 }
 
-  LEGEND = [["a1", "a2", "a3"], ["b1", "b2", "b3"], ["c1", "c2", "c3"]]
+  LEGEND = [["A1", "B1", "C1"], ["A2", "B2", "C2"], ["A3", "B3", "C3"]]
 
   def initialize
     puts "\nWelcome!"
@@ -31,22 +31,21 @@ class Game
 
   def print_grid
     puts
-    @grid.each do |position, state|
-      case state
-      when X
-        print "|" + "X" + "|"
-      when O
-        print "|" + "O" + "|"
-      else
-        print "|" + "_" + "|"
-      end
-    end
     puts
+    print "1   #{@grid[:a1]} | #{@grid[:b1]} | #{@grid[:c1]} \n"
+    print "   -----------\n"
+    print "2   #{@grid[:a2]} | #{@grid[:b2]} | #{@grid[:c2]} \n"
+    print "   -----------\n"
+    print "3   #{@grid[:a3]} | #{@grid[:b3]} | #{@grid[:c3]} \n"
+    puts
+    puts "    A   B   C"
   end
 
   def run
+    print_legend
     until game_over?
-      @player.input(@grid)
+      print "\nYour turn. Enter a position to place your move there: "
+      @grid = @player.input(@grid)
       print_grid
     end
   end
@@ -57,19 +56,19 @@ end
 
 class Player
   def initialize
-    @mark = "X"
+    @mark = 1
   end
 
   def input(grid)
-    print "\nYour turn. Enter a position to place your move there: "
     position = gets.downcase.chomp!
-    if position !~ /[a-c][1-3]/
+    if (position !~ /[abc][1-3]/) && (position !~ /[1-3][abc]/)
       print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
-      input
-    elsif grid[position.to_sym] != 0
+      input(grid)
+    elsif (grid[position.to_sym] != 0) | (grid[position.reverse.to_sym] != 0)
       print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
+      input(grid)
     else
-      grid[position] = @player_mark
+      grid[position] = @mark
       return grid
     end
   end
