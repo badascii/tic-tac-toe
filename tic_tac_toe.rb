@@ -53,12 +53,21 @@ class Game
     end
   end
 
+  def cpu_turn
+    if @grid[:b2] == 0
+      @grid[:b2] = O
+    else
+
+    end
+  end
+
   def run
     print_legend
     until game_over?
       print "\nYour turn. Enter a position to place your move there: "
       input
       print_grid
+      cpu_turn
     end
   end
 
