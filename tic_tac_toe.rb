@@ -64,7 +64,7 @@ class Player
     if (position !~ /[abc][1-3]/) && (position !~ /[1-3][abc]/)
       print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
       input(grid)
-    elsif (grid[position.to_sym] != 0) | (grid[position.reverse.to_sym] != 0)
+    elsif (grid[position.to_sym] != 0) && (grid[position.reverse.to_sym] != 0)
       print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
       input(grid)
     else
