@@ -12,7 +12,6 @@ class Game
   def initialize
     puts "\nWelcome!"
     @grid = GRID
-    @player = Player.new
     @cpu = Cpu.new
     @player_mark = "X"
     @cpu_mark = "O"
@@ -41,11 +40,24 @@ class Game
     puts "    A   B   C"
   end
 
+  def input
+    position = gets.downcase.chomp!
+    if (position !~ /[abc][1-3]/) && (position !~ /[1-3][abc]/)
+      print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
+      input
+    elsif (@grid[position.to_sym] != 0) && (@grid[position.reverse.to_sym] != 0)
+      print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
+      input
+    else
+      @grid[position.to_sym] = @player_mark
+    end
+  end
+
   def run
     print_legend
     until game_over?
       print "\nYour turn. Enter a position to place your move there: "
-      @grid = @player.input(@grid)
+      input
       print_grid
     end
   end
@@ -54,26 +66,7 @@ class Game
   end
 end
 
-class Player
-  def initialize
-    @mark = 1
-  end
 
-  def input(grid)
-    position = gets.downcase.chomp!
-    if (position !~ /[abc][1-3]/) && (position !~ /[1-3][abc]/)
-      print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
-      input(grid)
-    elsif (grid[position.to_sym] != 0) && (grid[position.reverse.to_sym] != 0)
-      print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
-      input(grid)
-    else
-      grid[position] = @mark
-      return grid
-    end
-  end
-
-end
 
 class Cpu
   def initialize
