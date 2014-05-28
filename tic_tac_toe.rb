@@ -75,7 +75,7 @@ class Game
   def run
     print_legend
     until game_over?
-      print "\nYour turn. Enter a position to place your move there: "
+      print "\nYour turn. Enter a position (1A, B2, 3C, etc) to place your move there: "
       input
       print_grid
       cpu_turn
