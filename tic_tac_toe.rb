@@ -13,8 +13,8 @@ class Game
     puts "\nWelcome!"
     @grid = GRID
     @cpu = Cpu.new
-    @player_mark = "X"
-    @cpu_mark = "O"
+    @player_mark = X
+    @cpu_mark = O
   end
 
   def print_legend
@@ -28,16 +28,27 @@ class Game
     end
   end
 
+  def print_marker(value)
+    case value
+    when X
+      return "X"
+    when O
+      return "O"
+    else
+      return " "
+    end
+  end
+
   def print_grid
+    puts "\n     A   B   C"
     puts
+    print "1    " + print_marker(@grid[:a1]) + " | " + print_marker(@grid[:b1]) + " | " + print_marker(@grid[:c1])
+    print "\n    -----------\n"
+    print "2    " + print_marker(@grid[:a2]) + " | " + print_marker(@grid[:b2]) + " | " + print_marker(@grid[:c2])
+    print "\n    -----------\n"
+    print "3    " + print_marker(@grid[:a3]) + " | " + print_marker(@grid[:b3]) + " | " + print_marker(@grid[:c3])
     puts
-    print "1   #{@grid[:a1]} | #{@grid[:b1]} | #{@grid[:c1]} \n"
-    print "   -----------\n"
-    print "2   #{@grid[:a2]} | #{@grid[:b2]} | #{@grid[:c2]} \n"
-    print "   -----------\n"
-    print "3   #{@grid[:a3]} | #{@grid[:b3]} | #{@grid[:c3]} \n"
-    puts
-    puts "    A   B   C"
+    puts "\n     A   B   C"
   end
 
   def input
@@ -55,7 +66,7 @@ class Game
 
   def cpu_turn
     if @grid[:b2] == 0
-      @grid[:b2] = O
+      @grid[:b2] = @cpu_mark
     else
 
     end
