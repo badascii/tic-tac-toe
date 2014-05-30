@@ -68,14 +68,21 @@ class Game
     if @grid[:b2] == 0
       @grid[:b2] = @cpu_mark
     else
-
+      check_for_win
+      prevent_loss
     end
+    puts "\n\nCPU turn:\n\n"
+    print_grid
+  end
+
+  def check_for_win
+    return if @grid[]
   end
 
   def run
     print_legend
     until game_over?
-      print "\nYour turn. Enter a position (1A, B2, 3C, etc) to place your move there: "
+      print "\nYour turn. Enter a position (1A, B2, 3C etc) to place your move there: "
       input
       print_grid
       cpu_turn
@@ -83,6 +90,11 @@ class Game
   end
 
   def game_over?
+  end
+
+  def grid_full?
+    return false if @grid.contains?(0)
+    return true
   end
 end
 
