@@ -90,6 +90,7 @@ class Game
   end
 
   def game_over?
+    return true if grid_full?
   end
 
   def grid_full?
