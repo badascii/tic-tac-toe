@@ -76,7 +76,12 @@ class Game
   end
 
   def check_for_win
-    return if @grid[]
+    # return if @grid[]
+    # pseudocode
+    # @grid[:x1].each do |x|
+    # if all @grid[:x1][:x2][:x3] == same
+       # return win
+       # elsif all @grid[:ax][:bx][:cx] == same
   end
 
   def run
