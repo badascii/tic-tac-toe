@@ -76,15 +76,27 @@ class Game
   end
 
   def check_for_win
-      # if all a, all b, or all c keys are == 1 or 2, return winner
-      # if all 1, all 2, or all 3 keys are == 1 or 2, return winner
-      # if a1, b2, c3 or a3, b2, c1 are == 1 or 2, return winner
+    check_vertical_win
+    check_horizontal_win
+    check_diagonal_win
+  end
+
+
+  def check_vertical_win
+    # if all a, all b, or all c keys are == X or O, return winner
+  end
+
+  def check_horizontal_win
+    # if a1, b2, c3 or a3, b2, c1 are == X or O, return winner
+  end
+
+  def check_diagonal_win
+    # if all 1, all 2, or all 3 keys are == X or O, return winner
   end
 
   def run
     print_legend
     until game_over?
-      print "\nYour turn. Enter a position (1A, B2, 3C etc) to place your move there: "
       input
       print_grid
       cpu_turn
@@ -100,8 +112,6 @@ class Game
     return true
   end
 end
-
-
 
 class Cpu
   def initialize
