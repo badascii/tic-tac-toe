@@ -78,6 +78,7 @@ class Game
   def check_for_win
       # if all a, all b, or all c keys are == 1 or 2, return winner
       # if all 1, all 2, or all 3 keys are == 1 or 2, return winner
+      # if a1, b2, c3 or a3, b2, c1 are == 1 or 2, return winner
   end
 
   def run
