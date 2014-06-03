@@ -76,12 +76,8 @@ class Game
   end
 
   def check_for_win
-    # return if @grid[]
-    # pseudocode
-    # @grid[:x1].each do |x|
-    # if all @grid[:x1][:x2][:x3] == same
-       # return win
-       # elsif all @grid[:ax][:bx][:cx] == same
+      # if all a, all b, or all c keys are == 1 or 2, return winner
+      # if all 1, all 2, or all 3 keys are == 1 or 2, return winner
   end
 
   def run
