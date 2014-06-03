@@ -68,30 +68,46 @@ class Game
     if @grid[:b2] == 0
       @grid[:b2] = @cpu_mark
     else
-      check_for_win
-      prevent_loss
     end
     puts "\n\nCPU turn:\n\n"
     print_grid
   end
 
-  def check_for_win
-    check_vertical_win
-    check_horizontal_win
-    check_diagonal_win
-  end
-
-
-  def check_vertical_win
+  def vertical_win?(mark)
     # if all a, all b, or all c keys are == X or O, return winner
+    return true if @grid[:a1] == mark && @grid[:a2] == mark && @grid[:a3] == mark
+    return true if @grid[:b1] == mark && @grid[:b2] == mark && @grid[:b3] == mark
+    return true if @grid[:c1] == mark && @grid[:c2] == mark && @grid[:c3] == mark
   end
 
-  def check_horizontal_win
-    # if a1, b2, c3 or a3, b2, c1 are == X or O, return winner
-  end
-
-  def check_diagonal_win
+  def horizontal_win?(mark)
     # if all 1, all 2, or all 3 keys are == X or O, return winner
+    return true if @grid[:a1] == mark && @grid[:b1] == mark && @grid[:c1] == mark
+    return true if @grid[:a2] == mark && @grid[:b2] == mark && @grid[:c2] == mark
+    return true if @grid[:a3] == mark && @grid[:b3] == mark && @grid[:c3] == mark
+  end
+
+  def diagonal_win?(mark)
+    # if a1, b2, c3 or a3, b2, c1 are == X or O, return winner
+    return true if @grid[:a1] == mark && @grid[:b2] == mark && @grid[:c3] == mark
+    return true if @grid[:a3] == mark && @grid[:b2] == mark && @grid[:c1] == mark
+  end
+
+  def player_win?
+    vertical_win?(@player_mark)
+    horizontal_win?(@player_mark)
+    diagonal_win?(@player_mark)
+  end
+
+  def cpu_win?
+    vertical_win?(@cpu_mark)
+    horizontal_win?(@cpu_mark)
+    diagonal_win?(@cpu_mark)
+  end
+
+  def win?
+    player_win?
+    cpu_win?
   end
 
   def run
@@ -101,14 +117,25 @@ class Game
       print_grid
       cpu_turn
     end
+    results
+  end
+
+  def results
+    if player_win?
+      puts "Congratulations! You win!"
+    elsif cpu_win?
+      puts "You lose. Really?"
+    else
+      puts "Stalemate."
+    end
   end
 
   def game_over?
-    return true if grid_full?
+    return true if grid_full? || win?
   end
 
   def grid_full?
-    return false if @grid.contains?(0)
+    return false if @grid.include?(0)
     return true
   end
 end
