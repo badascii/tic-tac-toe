@@ -33,6 +33,7 @@ class Game
         print "|" + position + "|"
       end
       puts
+      puts
     end
   end
 
@@ -60,12 +61,13 @@ class Game
   end
 
   def input
+    print "Please enter the letter and number of an open position: "
     position = gets.downcase.chomp!
     if (position !~ /[abc][1-3]/) && (position !~ /[1-3][abc]/)
-      print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
+      print "\nInvalid input.\n\n"
       input
-    elsif (@grid[position.to_sym] != 0) && (@grid[position.reverse.to_sym] != 0)
-      print "\nInvalid input. Please enter the letter and number of an open position and press enter: "
+    elsif (@grid[position] != 0) && (@grid[position.reverse] != 0)
+      print "\nInvalid input.\n\n"
       input
     else
       @grid[position.to_sym] = @player_mark
