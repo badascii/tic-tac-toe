@@ -3,9 +3,17 @@ class Game
 # blank = 0
   X = 1
   O = 2
-  GRID = {a1: 0, b1: 0, c1: 0,
-          a2: 0, b2: 0, c2: 0,
-          a3: 0, b3: 0, c3: 0 }
+  GRID = {"a1" => 0, "b1" => 0, "c1" => 0,
+          "a2" => 0, "b2" => 0, "c2" => 0,
+          "a3" => 0, "b3" => 0, "c3" => 0 }
+
+  # vertical, horizontal, and diagonal win conditions, respectively
+  WIN_CONDITIONS = [["a1", "a2", "a3"],
+                    ["b1", "b2", "b3"],
+                    ["c1", "c2", "c3"],
+                    ["a1", "b1", "c1"],
+                    ["a2", "b2", "c2"],
+                    ["a3", "b3", "c3"]]
 
   LEGEND = [["A1", "B1", "C1"], ["A2", "B2", "C2"], ["A3", "B3", "C3"]]
 
@@ -42,11 +50,11 @@ class Game
   def print_grid
     puts "\n     A   B   C"
     puts
-    print "1    " + print_marker(@grid[:a1]) + " | " + print_marker(@grid[:b1]) + " | " + print_marker(@grid[:c1])
+    print "1    " + print_marker(@grid["a1"]) + " | " + print_marker(@grid["b1"]) + " | " + print_marker(@grid["c1"])
     print "\n    -----------\n"
-    print "2    " + print_marker(@grid[:a2]) + " | " + print_marker(@grid[:b2]) + " | " + print_marker(@grid[:c2])
+    print "2    " + print_marker(@grid["a2"]) + " | " + print_marker(@grid["b2"]) + " | " + print_marker(@grid["c2"])
     print "\n    -----------\n"
-    print "3    " + print_marker(@grid[:a3]) + " | " + print_marker(@grid[:b3]) + " | " + print_marker(@grid[:c3])
+    print "3    " + print_marker(@grid["a3"]) + " | " + print_marker(@grid["b3"]) + " | " + print_marker(@grid["c3"])
     puts
     puts "\n     A   B   C"
   end
@@ -71,6 +79,16 @@ class Game
     end
     puts "\n\nCPU turn:\n\n"
     print_grid
+  end
+
+  def cpu_check_vertical
+
+  end
+
+  def cpu_check_horizontal
+  end
+
+  def cpu_check_diagonal
   end
 
   def vertical_win?(mark)
