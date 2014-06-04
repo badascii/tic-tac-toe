@@ -82,7 +82,6 @@ class Game
   end
 
   def cpu_check_vertical
-
   end
 
   def cpu_check_horizontal
@@ -153,7 +152,7 @@ class Game
   end
 
   def grid_full?
-    return false if @grid.include?(0)
+    return false if @grid.has_value?(0)
     return true
   end
 end
