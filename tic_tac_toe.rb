@@ -61,29 +61,40 @@ class Game
   end
 
   def input
-    print "Please enter the letter and number of an open position: "
+    print "\nPlease enter the letter and number of an open position: "
     position = gets.downcase.chomp!
     if (position !~ /[abc][1-3]/) && (position !~ /[1-3][abc]/)
-      print "\nInvalid input.\n\n"
+      print "\nInvalid input. That is not a valid position.\n"
       input
     elsif (@grid[position] != 0) && (@grid[position.reverse] != 0)
-      print "\nInvalid input.\n\n"
+      print "\nInvalid input. That position is taken.\n"
       input
     else
-      @grid[position.to_sym] = @player_mark
+      @grid[position] = @player_mark
     end
   end
 
   def cpu_turn
-    if @grid[:b2] == 0
-      @grid[:b2] = @cpu_mark
-    else
+    if @grid["b2"] == 0
+      @grid["b2"] = @cpu_mark
+    elseif cpu_check_for_win.length == 3
+      @grid[]
     end
-    puts "\n\nCPU turn:\n\n"
+    puts "\n\nCPU turn:\n"
     print_grid
   end
 
-  def cpu_check_vertical
+  def cpu_check_for_win
+    WIN_CONDITIONS.each do |condition|
+      win = []
+      condition.each do |position|
+        win << position if @grid[position] == @cpu_mark
+      end
+      return condition if win.length == 2
+    end
+  end
+
+  def cpu_check_for_loss
   end
 
   def cpu_check_horizontal
@@ -94,22 +105,22 @@ class Game
 
   def vertical_win?(mark)
     # if all a, all b, or all c keys are == X or O, return winner
-    return true if @grid[:a1] == mark && @grid[:a2] == mark && @grid[:a3] == mark
-    return true if @grid[:b1] == mark && @grid[:b2] == mark && @grid[:b3] == mark
-    return true if @grid[:c1] == mark && @grid[:c2] == mark && @grid[:c3] == mark
+    return true if @grid["a1"] == mark && @grid["a2"] == mark && @grid["a3"] == mark
+    return true if @grid["b1"] == mark && @grid["b2"] == mark && @grid["b3"] == mark
+    return true if @grid["c1"] == mark && @grid["c2"] == mark && @grid["c3"] == mark
   end
 
   def horizontal_win?(mark)
     # if all 1, all 2, or all 3 keys are == X or O, return winner
-    return true if @grid[:a1] == mark && @grid[:b1] == mark && @grid[:c1] == mark
-    return true if @grid[:a2] == mark && @grid[:b2] == mark && @grid[:c2] == mark
-    return true if @grid[:a3] == mark && @grid[:b3] == mark && @grid[:c3] == mark
+    return true if @grid["a1"] == mark && @grid["b1"] == mark && @grid["c1"] == mark
+    return true if @grid["a2"] == mark && @grid["b2"] == mark && @grid["c2"] == mark
+    return true if @grid["a3"] == mark && @grid["b3"] == mark && @grid["c3"] == mark
   end
 
   def diagonal_win?(mark)
     # if a1, b2, c3 or a3, b2, c1 are == X or O, return winner
-    return true if @grid[:a1] == mark && @grid[:b2] == mark && @grid[:c3] == mark
-    return true if @grid[:a3] == mark && @grid[:b2] == mark && @grid[:c1] == mark
+    return true if @grid["a1"] == mark && @grid["b2"] == mark && @grid["c3"] == mark
+    return true if @grid["a3"] == mark && @grid["b2"] == mark && @grid["c1"] == mark
   end
 
   def player_win?
