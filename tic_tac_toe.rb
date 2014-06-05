@@ -13,7 +13,9 @@ class Game
                     ["c1", "c2", "c3"],
                     ["a1", "b1", "c1"],
                     ["a2", "b2", "c2"],
-                    ["a3", "b3", "c3"]]
+                    ["a3", "b3", "c3"],
+                    ["a1", "b2", "c3"],
+                    ["a3", "b2", "c1"]]
 
   LEGEND = [["A1", "B1", "C1"], ["A2", "B2", "C2"], ["A3", "B3", "C3"]]
 
@@ -75,26 +77,39 @@ class Game
   end
 
   def cpu_turn
+    win  = cpu_check_for_win(@cpu_mark)
+    puts win.class
+    # puts win
+    loss = cpu_check_for_win(@player_mark)
     if @grid["b2"] == 0
       @grid["b2"] = @cpu_mark
-    elseif cpu_check_for_win.length == 3
-      @grid[]
+    elsif win.class == Array
+      win.each do |position|
+        @grid[position] = @cpu_mark if position == 0
+      end
+    elsif loss.class == Array
+      loss.each do |position|
+        @grid[position] = @cpu_mark if position == 0
+      end
     end
     puts "\n\nCPU turn:\n"
     print_grid
   end
 
-  def cpu_check_for_win
+  def cpu_check_for_win(mark)
     WIN_CONDITIONS.each do |condition|
+      open_space = false
       win = []
       condition.each do |position|
-        win << position if @grid[position] == @cpu_mark
+        puts position
+        open_space = true if position == 0
+        win << position if @grid[position] == mark
       end
-      return condition if win.length == 2
+      puts win.length
+      return condition && break if win.length == 2 && open_space == true
+      # break if win.length == 2 && open_space == true
+      win = []
     end
-  end
-
-  def cpu_check_for_loss
   end
 
   def cpu_check_horizontal
@@ -121,23 +136,19 @@ class Game
     # if a1, b2, c3 or a3, b2, c1 are == X or O, return winner
     return true if @grid["a1"] == mark && @grid["b2"] == mark && @grid["c3"] == mark
     return true if @grid["a3"] == mark && @grid["b2"] == mark && @grid["c1"] == mark
+    return false
   end
 
-  def player_win?
-    vertical_win?(@player_mark)
-    horizontal_win?(@player_mark)
-    diagonal_win?(@player_mark)
-  end
-
-  def cpu_win?
-    vertical_win?(@cpu_mark)
-    horizontal_win?(@cpu_mark)
-    diagonal_win?(@cpu_mark)
+  def check_win?(mark)
+    vertical_win?(mark) || horizontal_win?(mark) || diagonal_win?(mark)
   end
 
   def win?
-    player_win?
-    cpu_win?
+    check_win?(@player_mark) || check_win?(@cpu_mark)
+  end
+
+  def game_over?
+    return true if grid_full? || win?
   end
 
   def run
@@ -148,20 +159,17 @@ class Game
       cpu_turn
     end
     results
+    exit
   end
 
   def results
-    if player_win?
-      puts "Congratulations! You win!"
-    elsif cpu_win?
-      puts "You lose. Really?"
+    if check_win?(@player_mark)
+      puts "\nCongratulations! You win!\n"
+    elsif check_win?(@cpu_mark)
+      puts "\nYou lose. Really?\n"
     else
-      puts "Stalemate."
+      puts "\nStalemate.\n"
     end
-  end
-
-  def game_over?
-    return true if grid_full? || win?
   end
 
   def grid_full?

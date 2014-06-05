@@ -274,7 +274,7 @@ class Game
   end
 
   def check_horizontal_victory(mark)
-    if (@grid[0][0] == mark) && (@grid[0][1] == mark) && (@grid[0][2] == mark)
+    return true if (@grid[0][0] == mark) && (@grid[0][1] == mark) && (@grid[0][2] == mark)
       return true
     elsif (@grid[1][0] == mark) && (@grid[1][1] == mark) && (@grid[1][2] == mark)
       return true
