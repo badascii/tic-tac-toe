@@ -123,6 +123,7 @@ class Game
     return true if @grid["a1"] == mark && @grid["a2"] == mark && @grid["a3"] == mark
     return true if @grid["b1"] == mark && @grid["b2"] == mark && @grid["b3"] == mark
     return true if @grid["c1"] == mark && @grid["c2"] == mark && @grid["c3"] == mark
+    return false
   end
 
   def horizontal_win?(mark)
@@ -130,6 +131,7 @@ class Game
     return true if @grid["a1"] == mark && @grid["b1"] == mark && @grid["c1"] == mark
     return true if @grid["a2"] == mark && @grid["b2"] == mark && @grid["c2"] == mark
     return true if @grid["a3"] == mark && @grid["b3"] == mark && @grid["c3"] == mark
+    return false
   end
 
   def diagonal_win?(mark)
@@ -145,10 +147,12 @@ class Game
 
   def win?
     check_win?(@player_mark) || check_win?(@cpu_mark)
+    return false
   end
 
   def game_over?
     return true if grid_full? || win?
+    return false
   end
 
   def run
