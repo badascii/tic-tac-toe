@@ -78,44 +78,33 @@ class Game
 
   def cpu_turn
     win  = cpu_check_for_win(@cpu_mark)
-    puts win.class
-    # puts win
     loss = cpu_check_for_win(@player_mark)
     if @grid["b2"] == 0
       @grid["b2"] = @cpu_mark
-    elsif win.class == Array
-      win.each do |position|
-        @grid[position] = @cpu_mark if position == 0
-      end
-    elsif loss.class == Array
-      loss.each do |position|
-        @grid[position] = @cpu_mark if position == 0
-      end
+    elsif win
+      @grid[win] = @cpu_mark
+    elsif loss
+      @grid[loss] = @cpu_mark
+    else
     end
     puts "\n\nCPU turn:\n"
     print_grid
   end
 
   def cpu_check_for_win(mark)
+    move = nil
     WIN_CONDITIONS.each do |condition|
+      occupied_spaces = []
       open_space = false
-      win = []
       condition.each do |position|
-        puts position
-        open_space = true if position == 0
-        win << position if @grid[position] == mark
+        open_space = true if @grid[position] == 0
+        occupied_spaces << position if @grid[position] == mark
       end
-      puts win.length
-      return condition && break if win.length == 2 && open_space == true
-      # break if win.length == 2 && open_space == true
-      win = []
+      if occupied_spaces.length == 2 && open_space == true
+        move = condition - occupied_spaces
+      end
     end
-  end
-
-  def cpu_check_horizontal
-  end
-
-  def cpu_check_diagonal
+    return move
   end
 
   def vertical_win?(mark)
@@ -147,7 +136,6 @@ class Game
 
   def win?
     check_win?(@player_mark) || check_win?(@cpu_mark)
-    return false
   end
 
   def game_over?
