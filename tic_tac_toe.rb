@@ -77,12 +77,14 @@ class Game
   end
 
   def cpu_turn
-    win  = cpu_check_for_win(@cpu_mark)
+    # win  = cpu_check_for_win(@cpu_mark)
     loss = cpu_check_for_win(@player_mark)
+    puts loss.class
+    puts loss
     if @grid["b2"] == 0
       @grid["b2"] = @cpu_mark
-    elsif win
-      @grid[win] = @cpu_mark
+    # elsif win
+      # @grid[win] = @cpu_mark
     elsif loss
       @grid[loss] = @cpu_mark
     else
@@ -100,11 +102,14 @@ class Game
         open_space = true if @grid[position] == 0
         occupied_spaces << position if @grid[position] == mark
       end
+      puts occupied_spaces
+      puts occupied_spaces.length
+      puts open_space
       if occupied_spaces.length == 2 && open_space == true
         move = condition - occupied_spaces
+        return move.first
       end
     end
-    return move
   end
 
   def vertical_win?(mark)
