@@ -87,18 +87,22 @@ class Game
       @grid[win] = @cpu_mark
     elsif loss
       @grid[loss] = @cpu_mark
+    elsif opening_defense?
+      @grid["a2"] == @cpu_mark
     else
     end
     puts "\n\nCPU turn:\n"
     print_grid
   end
 
-  # def defend_opener
-  #   corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
-  #   side_positions = [@grid["a2"], @grid["b1"], @grid[""], @grid[""]
-  #   if @grid["b2"] == @cpu_mark && (corner_positions.uniq.count == 2 || corner_positions.uniq.count == 3)
-
-  # end
+  def opening_defense?
+    corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
+    side_positions = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
+    if @grid["b2"] == @cpu_mark && corner_positions.uniq.count == 2 && side_positions.uniq.count == 3
+      return true
+    end
+    return false
+  end
 
   def cpu_check_for_win(mark)
     move = nil
