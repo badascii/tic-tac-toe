@@ -90,6 +90,8 @@ class Game
     elsif opening_defense?
       @grid["a2"] == @cpu_mark
     else
+      move = @grid.keys[0]
+      @grid[move] == @cpu_mark
     end
     puts "\n\nCPU turn:\n"
     print_grid
