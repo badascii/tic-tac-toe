@@ -28,15 +28,25 @@ class Game
   end
 
   def print_legend
-    puts "\nGrid Legend"
-    puts "-----------\n"
-    LEGEND.each do |row|
-      row.each do |position|
-        print "|" + position + "|"
-      end
-      puts
-      puts
-    end
+    # puts "\nGrid Legend"
+    # puts "-----------\n"
+    # LEGEND.each do |row|
+    #   row.each do |position|
+    #     print "|" + position + "|"
+    #   end
+    #   puts
+    #   puts
+    # end
+    puts "\n     A   B   C"
+    puts
+    print "1    " + "A1" + " | " + "B1" + " | " + "C1"
+    print "\n    -----------\n"
+    print "2    " + "A2" + " | " + "B2" + " | " + "C2"
+    print "\n    -----------\n"
+    print "3    " + "A3" + " | " + "B3" + " | " + "C3"
+    puts
+    puts "\n     A   B   C"
+
   end
 
   def print_marker(value)
