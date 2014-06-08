@@ -135,7 +135,7 @@ class Game
   end
 
   def opposite_corners?
-    if (@grid["a1"] == @player_mark && @grid["c3"] == @player_mark) #|| (@grid["a3"] == @player_mark && @grid["c1"] == @player_mark)
+    if (@grid["a1"] == @player_mark && @grid["c3"] == @player_mark) || (@grid["a3"] == @player_mark && @grid["c1"] == @player_mark)
       return true
     end
     return false
