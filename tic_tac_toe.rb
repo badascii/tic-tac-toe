@@ -95,6 +95,7 @@ class Game
       @grid[loss] = @cpu_mark
     elsif side_defense?
       place_side_defense
+    elsif opposite_corners?
     end
     puts "\n\nCPU turn:\n"
     print_grid
@@ -115,6 +116,13 @@ class Game
     else
       @grid["a1"] = @cpu_mark
     end
+  end
+
+  def opposite_corners?
+    if (@grid["a1"] == @player_mark && @grid["c3"] == @player_mark) || (@grid["a3"] == @player_mark && @grid["c1"] == @player_mark)
+      return true
+    end
+    return false
   end
 
   def place_side_defense
