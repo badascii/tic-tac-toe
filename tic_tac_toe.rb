@@ -110,6 +110,12 @@ class Game
     elsif @grid["a2"] && @grid["c2"] == 0
       @grid["c2"] = @cpu_mark
     else
+      @grid.each do |key, value|
+        if value == 0
+          @grid[key] = @cpu_mark
+          return
+        end
+      end
     end
   end
 
