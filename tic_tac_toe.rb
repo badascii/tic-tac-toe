@@ -97,9 +97,20 @@ class Game
       place_side_defense
     elsif opposite_corners?
       @grid["a2"] = @cpu_mark
+    elsif
+      optimal_move
     end
     puts "\n\nCPU turn:\n"
     print_grid
+  end
+
+  def optimal_move
+    if @grid["b1"] == 0 && @grid["b3"] == 0
+      @grid["b1"] = @cpu_mark
+    elsif @grid["a2"] && @grid["c2"] == 0
+      @grid["c2"] = @cpu_mark
+    else
+    end
   end
 
   def side_defense?
