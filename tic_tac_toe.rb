@@ -157,25 +157,38 @@ class Game
 
   def vertical_win?(mark)
     # if all a, all b, or all c keys are == X or O, return winner
-    return true if @grid["a1"] == mark && @grid["a2"] == mark && @grid["a3"] == mark
-    return true if @grid["b1"] == mark && @grid["b2"] == mark && @grid["b3"] == mark
-    return true if @grid["c1"] == mark && @grid["c2"] == mark && @grid["c3"] == mark
+    # return true if @grid["a1"] == mark && @grid["a2"] == mark && @grid["a3"] == mark
+    # return true if @grid["b1"] == mark && @grid["b2"] == mark && @grid["b3"] == mark
+    # return true if @grid["c1"] == mark && @grid["c2"] == mark && @grid["c3"] == mark
+    return true if three_in_a_row?(mark, "a1", "a2", "a3")
+    return true if three_in_a_row?(mark, "b1", "b2", "b3")
+    return true if three_in_a_row?(mark, "c1", "c2", "c3")
     return false
   end
 
   def horizontal_win?(mark)
     # if all 1, all 2, or all 3 keys are == X or O, return winner
-    return true if @grid["a1"] == mark && @grid["b1"] == mark && @grid["c1"] == mark
-    return true if @grid["a2"] == mark && @grid["b2"] == mark && @grid["c2"] == mark
-    return true if @grid["a3"] == mark && @grid["b3"] == mark && @grid["c3"] == mark
+    # return true if @grid["a1"] == mark && @grid["b1"] == mark && @grid["c1"] == mark
+    # return true if @grid["a2"] == mark && @grid["b2"] == mark && @grid["c2"] == mark
+    # return true if @grid["a3"] == mark && @grid["b3"] == mark && @grid["c3"] == mark
+    return true if three_in_a_row?(mark, "a1", "b1", "c1")
+    return true if three_in_a_row?(mark, "a2", "b2", "c2")
+    return true if three_in_a_row?(mark, "a3", "b3", "c3")
     return false
   end
 
   def diagonal_win?(mark)
     # if a1, b2, c3 or a3, b2, c1 are == X or O, return winner
-    return true if @grid["a1"] == mark && @grid["b2"] == mark && @grid["c3"] == mark
-    return true if @grid["a3"] == mark && @grid["b2"] == mark && @grid["c1"] == mark
+    # return true if @grid["a1"] == mark && @grid["b2"] == mark && @grid["c3"] == mark
+    # return true if @grid["a3"] == mark && @grid["b2"] == mark && @grid["c1"] == mark
+    return true if three_in_a_row?(mark, "a1", "b2", "c3")
+    return true if three_in_a_row?(mark, "a3", "b2", "c1")
     return false
+
+  end
+
+  def three_in_a_row?(mark, position_1, position_2, position_3)
+    return true if @grid[position_1] == mark && @grid[position_2] ==  mark && @grid[position_3] == mark
   end
 
   def check_win?(mark)
