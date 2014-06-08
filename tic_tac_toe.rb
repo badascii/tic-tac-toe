@@ -17,8 +17,6 @@ class Game
                     ["a1", "b2", "c3"],
                     ["a3", "b2", "c1"]]
 
-  LEGEND = [["A1", "B1", "C1"], ["A2", "B2", "C2"], ["A3", "B3", "C3"]]
-
   def initialize
     puts "\nWelcome!"
     @grid = GRID
@@ -28,15 +26,6 @@ class Game
   end
 
   def print_legend
-    # puts "\nGrid Legend"
-    # puts "-----------\n"
-    # LEGEND.each do |row|
-    #   row.each do |position|
-    #     print "|" + position + "|"
-    #   end
-    #   puts
-    #   puts
-    # end
     puts "\n     A    B    C"
     puts
     print "1    " + "A1" + " | " + "B1" + " | " + "C1"
@@ -46,7 +35,6 @@ class Game
     print "3    " + "A3" + " | " + "B3" + " | " + "C3"
     puts
     puts "\n     A    B    C"
-
   end
 
   def print_marker(value)
@@ -183,7 +171,6 @@ class Game
   end
 
   def vertical_win?(mark)
-    # if all a, all b, or all c keys are == X or O, return winner
     # return true if @grid["a1"] == mark && @grid["a2"] == mark && @grid["a3"] == mark
     # return true if @grid["b1"] == mark && @grid["b2"] == mark && @grid["b3"] == mark
     # return true if @grid["c1"] == mark && @grid["c2"] == mark && @grid["c3"] == mark
@@ -194,7 +181,6 @@ class Game
   end
 
   def horizontal_win?(mark)
-    # if all 1, all 2, or all 3 keys are == X or O, return winner
     # return true if @grid["a1"] == mark && @grid["b1"] == mark && @grid["c1"] == mark
     # return true if @grid["a2"] == mark && @grid["b2"] == mark && @grid["c2"] == mark
     # return true if @grid["a3"] == mark && @grid["b3"] == mark && @grid["c3"] == mark
@@ -205,13 +191,11 @@ class Game
   end
 
   def diagonal_win?(mark)
-    # if a1, b2, c3 or a3, b2, c1 are == X or O, return winner
     # return true if @grid["a1"] == mark && @grid["b2"] == mark && @grid["c3"] == mark
     # return true if @grid["a3"] == mark && @grid["b2"] == mark && @grid["c1"] == mark
     return true if three_in_a_row?(mark, "a1", "b2", "c3")
     return true if three_in_a_row?(mark, "a3", "b2", "c1")
     return false
-
   end
 
   def three_in_a_row?(mark, position_1, position_2, position_3)
@@ -255,12 +239,6 @@ class Game
   def grid_full?
     return false if @grid.has_value?(0)
     return true
-  end
-end
-
-class Cpu
-  def initialize
-    @mark = "O"
   end
 end
 
