@@ -37,15 +37,15 @@ class Game
     #   puts
     #   puts
     # end
-    puts "\n     A   B   C"
+    puts "\n     A    B    C"
     puts
     print "1    " + "A1" + " | " + "B1" + " | " + "C1"
-    print "\n    -----------\n"
+    print "\n    --------------\n"
     print "2    " + "A2" + " | " + "B2" + " | " + "C2"
-    print "\n    -----------\n"
+    print "\n    --------------\n"
     print "3    " + "A3" + " | " + "B3" + " | " + "C3"
     puts
-    puts "\n     A   B   C"
+    puts "\n     A    B    C"
 
   end
 
