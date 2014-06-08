@@ -72,17 +72,23 @@ class Game
       print "\nInvalid input. That position is taken.\n"
       input
     else
+      if position =~ /[1-3][abc]/
+        position.reverse!
+      end
       @grid[position] = @player_mark
     end
   end
 
   def cpu_turn
+    if grid_full?
+      return nil
+    end
     puts "Computer is thinking..."
     sleep 2
     win  = cpu_check_for_win(@cpu_mark)
     loss = cpu_check_for_win(@player_mark)
-    if @grid["b2"] == 0
-      @grid["b2"] = @cpu_mark
+    if @grid.values.uniq.length == 2
+      opening_move
     elsif win
       @grid[win] = @cpu_mark
     elsif loss
@@ -101,6 +107,14 @@ class Game
       return true
     end
     return false
+  end
+
+  def opening_move
+    if @grid["b2"] == 0
+      @grid["b2"] = @cpu_mark
+    else
+      @grid["a1"] = @cpu_mark
+    end
   end
 
   def place_side_defense
