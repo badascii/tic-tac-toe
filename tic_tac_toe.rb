@@ -228,9 +228,9 @@ class Game
   end
 
   def results
-    if check_win?(@player_mark)
+    if win?(@player_mark)
       puts "\nCongratulations! You win!\n\n"
-    elsif check_win?(@cpu_mark)
+    elsif win?(@cpu_mark)
       puts "\nYou lose. Really?\n\n"
     else
       puts "\nStalemate.\n\n"
