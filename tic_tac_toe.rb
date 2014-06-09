@@ -99,7 +99,6 @@ class Game
       optimal_move
     end
     puts "\nCPU turn:\n"
-    print_grid
   end
 
   def optimal_move
@@ -210,6 +209,11 @@ class Game
     check_win?(@player_mark) || check_win?(@cpu_mark)
   end
 
+  def grid_full?
+    return false if @grid.has_value?(0)
+    return true
+  end
+
   def game_over?
     return true if grid_full? || win?
     return false
@@ -221,6 +225,7 @@ class Game
       input
       print_grid
       cpu_turn
+      print_grid
     end
     results
     exit
@@ -228,18 +233,14 @@ class Game
 
   def results
     if check_win?(@player_mark)
-      puts "\nCongratulations! You win!\n"
+      puts "\nCongratulations! You win!\n\n"
     elsif check_win?(@cpu_mark)
-      puts "\nYou lose. Really?\n"
+      puts "\nYou lose. Really?\n\n"
     else
-      puts "\nStalemate.\n"
+      puts "\nStalemate.\n\n"
     end
   end
 
-  def grid_full?
-    return false if @grid.has_value?(0)
-    return true
-  end
 end
 
 class Cpu
