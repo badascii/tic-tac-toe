@@ -81,7 +81,7 @@ class Game
     if grid_full?
       return nil
     end
-    puts "Computer is thinking..."
+    puts "\nComputer is thinking..."
     sleep 2
     win  = cpu_check_for_win(@cpu_mark)
     loss = cpu_check_for_win(@player_mark)
@@ -98,7 +98,7 @@ class Game
     else
       optimal_move
     end
-    puts "\n\nCPU turn:\n"
+    puts "\nCPU turn:\n"
     print_grid
   end
 
