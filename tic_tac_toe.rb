@@ -242,6 +242,12 @@ class Game
   end
 end
 
+class Cpu
+  def initialize
+    @mark = "O"
+  end
+end
+
 game = Game.new
 
 game.run
