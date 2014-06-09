@@ -95,7 +95,7 @@ class Game
       place_side_defense
     elsif opposite_corners?
       @grid["a2"] = @cpu_mark
-    elsif
+    else
       optimal_move
     end
     puts "\n\nCPU turn:\n"
