@@ -37,7 +37,7 @@ class Game
     puts "\n     A    B    C"
   end
 
-  def print_marker(value)
+  def print_mark(value)
     case value
     when X
       return "X"
@@ -51,11 +51,11 @@ class Game
   def print_grid
     puts "\n     A   B   C"
     puts
-    print "1    " + print_marker(@grid["a1"]) + " | " + print_marker(@grid["b1"]) + " | " + print_marker(@grid["c1"])
+    print "1    " + print_mark(@grid["a1"]) + " | " + print_mark(@grid["b1"]) + " | " + print_mark(@grid["c1"])
     print "\n    -----------\n"
-    print "2    " + print_marker(@grid["a2"]) + " | " + print_marker(@grid["b2"]) + " | " + print_marker(@grid["c2"])
+    print "2    " + print_mark(@grid["a2"]) + " | " + print_mark(@grid["b2"]) + " | " + print_mark(@grid["c2"])
     print "\n    -----------\n"
-    print "3    " + print_marker(@grid["a3"]) + " | " + print_marker(@grid["b3"]) + " | " + print_marker(@grid["c3"])
+    print "3    " + print_mark(@grid["a3"]) + " | " + print_mark(@grid["b3"]) + " | " + print_mark(@grid["c3"])
     puts
     puts "\n     A   B   C"
   end
@@ -198,15 +198,11 @@ class Game
   end
 
   def three_in_a_row?(mark, position_1, position_2, position_3)
-    return true if @grid[position_1] == mark && @grid[position_2] ==  mark && @grid[position_3] == mark
+    return true if @grid[position_1] == mark && @grid[position_2] == mark && @grid[position_3] == mark
   end
 
-  def check_win?(mark)
-    vertical_win?(mark) || horizontal_win?(mark) || diagonal_win?(mark)
-  end
-
-  def win?
-    check_win?(@player_mark) || check_win?(@cpu_mark)
+  def win?(mark)
+    vertical_win?(mark) || horizontal_win(mark) || diagonal_win?(mark)
   end
 
   def grid_full?
@@ -215,7 +211,7 @@ class Game
   end
 
   def game_over?
-    return true if grid_full? || win?
+    return true if grid_full? || win?(@player_mark) || win?(@cpu_mark)
     return false
   end
 
