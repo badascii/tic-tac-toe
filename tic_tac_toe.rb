@@ -20,7 +20,6 @@ class Game
   def initialize
     puts "\nWelcome!"
     @grid = GRID
-    @cpu = Cpu.new
     @player_mark = X
     @cpu_mark = O
   end
@@ -235,13 +234,6 @@ class Game
     else
       puts "\nStalemate.\n\n"
     end
-  end
-
-end
-
-class Cpu
-  def initialize
-    @mark = "O"
   end
 end
 
