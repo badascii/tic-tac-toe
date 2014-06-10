@@ -193,7 +193,7 @@ class Game
   end
 
   def win?(mark)
-    vertical_win?(mark) || horizontal_win(mark) || diagonal_win?(mark)
+    vertical_win?(mark) || horizontal_win?(mark) || diagonal_win?(mark)
   end
 
   def grid_full?
