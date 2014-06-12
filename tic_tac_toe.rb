@@ -120,11 +120,11 @@ class Game
       if @grid[position] == 0
         @grid[position] = @player_mark
       else
-        print "\nInvalid player_input. That position is taken.\n"
+        print "\nInvalid input. That position is taken.\n"
         player_input
       end
     else
-      print "\nInvalid player_input. That is not a valid position.\n"
+      print "\nInvalid input. That is not a valid position.\n"
       player_input
     end
   end
