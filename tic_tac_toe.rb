@@ -100,9 +100,9 @@ class Game
   end
 
   def optimal_move
-    if @grid["b1"] == 0 && @grid["b3"] == 0
+    if grid_empty?("b1") && grid_empty?("b3")
       @grid["b1"] = @cpu_mark
-    elsif @grid["a2"] && @grid["c2"] == 0
+    elsif grid_empty?("a2") && grid_empty?("c2")
       @grid["c2"] = @cpu_mark
     else
       @grid.each do |key, value|
@@ -121,7 +121,7 @@ class Game
   end
 
   def opening_move
-    if @grid["b2"] == 0
+    if grid_empty?("b2")
       @grid["b2"] = @cpu_mark
     else
       @grid["a1"] = @cpu_mark
@@ -163,6 +163,10 @@ class Game
       return move
   end
 
+  def grid_empty?(position)
+    @grid[position] == 0
+  end
+
   def vertical_win?(mark)
     three_in_a_row?(mark, "a1", "a2", "a3") || three_in_a_row?(mark, "b1", "b2", "b3") || three_in_a_row?(mark, "c1", "c2", "c3")
   end
@@ -176,7 +180,7 @@ class Game
   end
 
   def three_in_a_row?(mark, position_1, position_2, position_3)
-    @grid[position_1] == mark && @grid[position_2] == mark && @grid[position_3] == mark
+    (@grid[position_1] == mark) && (@grid[position_2] == mark) && (@grid[position_3] == mark)
   end
 
   def win?(mark)
