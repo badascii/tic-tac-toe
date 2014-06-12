@@ -61,9 +61,14 @@ class Game
 
     position = get_formatted_position
     if valid_position_format?(position)
-      @grid[position] = @player_mark
+      if @grid[position] == 0
+        @grid[position] = @player_mark
+      else
+        print "\nInvalid player_input. That position is taken.\n"
+        player_input
+      end
     else
-      print "\nInvalid player_input. That position is taken.\n"
+      print "\nInvalid player_input. That is not a valid position.\n"
       player_input
     end
   end
@@ -203,7 +208,7 @@ class Game
       player_input
       print_grid
       cpu_turn unless grid_full?
-      print_grid
+      print_grid unless grid_full?
     end
     results
     exit
