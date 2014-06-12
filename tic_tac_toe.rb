@@ -14,13 +14,16 @@ class Game
   ["a3", "b2", "c1"]  #   diagonal win
   ]
 
+  POSITION_REGEX_REVERSE = /[1-3][abc]/
+  POSITION_REGEX         = /[abc][1-3]/
+
   def initialize
     puts "\nWelcome!"
     @grid = {"a1" => 0, "b1" => 0, "c1" => 0,
              "a2" => 0, "b2" => 0, "c2" => 0,
              "a3" => 0, "b3" => 0, "c3" => 0 }
     @player_mark = X
-    @cpu_mark = O
+    @cpu_mark    = O
   end
 
   def print_legend
@@ -36,14 +39,9 @@ class Game
   end
 
   def print_mark(value)
-    case value
-    when X
-      "X"
-    when O
-      "O"
-    else
-      " "
-    end
+    return "X" if value == X
+    return "O" if value == O
+    " "
   end
 
   def print_grid
@@ -60,29 +58,33 @@ class Game
 
   def player_input
     print "\nPlease enter the letter and number of an open position: "
-    position = gets.downcase.chomp!
-    if (position !~ /[abc][1-3]/) && (position !~ /[1-3][abc]/)
-      print "\nInvalid player_input. That is not a valid position.\n"
-      player_input
-    elsif (@grid[position] != 0) && (@grid[position.reverse] != 0)
+
+    position = get_formatted_position
+    if valid_position_format?(position)
+      @grid[position] = @player_mark
+    else
       print "\nInvalid player_input. That position is taken.\n"
       player_input
-    else
-      if position =~ /[1-3][abc]/
-        position.reverse!
-      end
-      @grid[position] = @player_mark
     end
   end
 
+  def get_formatted_position
+    position = gets.downcase.chomp!
+    position.reverse! if position =~ POSITION_REGEX_REVERSE
+    position
+  end
+
+  def valid_position_format?(position)
+    (position =~ POSITION_REGEX) || (position =~ POSITION_REGEX_REVERSE)
+  end
+
   def cpu_turn
-    if grid_full?
-      return nil
-    end
     puts "\nComputer is thinking..."
     sleep 2
+
     win  = cpu_check_for_win(@cpu_mark)
     loss = cpu_check_for_win(@player_mark)
+
     if @grid.values.uniq.length == 2
       opening_move
     elsif win
@@ -117,7 +119,7 @@ class Game
   def side_defense?
     corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
     side_positions = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
-    @grid["b2"] == @cpu_mark && corner_positions.uniq.count == 2 && side_positions.uniq.count == 3
+    (@grid["b2"] == @cpu_mark) && (corner_positions.uniq.count == 2) && (side_positions.uniq.count == 3)
   end
 
   def opening_move
@@ -152,7 +154,7 @@ class Game
       occupied_spaces = []
       open_space = false
       condition.each do |position|
-        open_space = true if @grid[position] == 0
+        open_space = true if grid_empty?(position)
         occupied_spaces << position if @grid[position] == mark
       end
       if occupied_spaces.length == 2 && open_space == true
@@ -200,7 +202,7 @@ class Game
     until game_over?
       player_input
       print_grid
-      cpu_turn
+      cpu_turn unless grid_full?
       print_grid
     end
     results
