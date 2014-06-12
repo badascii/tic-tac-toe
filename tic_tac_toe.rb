@@ -41,15 +41,15 @@ class Game
   private
 
   def print_legend
-    puts "\n     A    B    C"
+    puts  "     A    B    C  \n"
     puts
-    print "1    A1 | B1 | C1"
-    print "\n    --------------\n"
-    print "2    A2 | B2 | C2"
-    print "\n    --------------\n"
-    print "3    A3 | B3 | C3"
+    print "1    A1 | B1 | C1 \n"
+    print "    --------------\n"
+    print "2    A2 | B2 | C2 \n"
+    print "    --------------\n"
+    print "3    A3 | B3 | C3 \n"
     puts
-    puts "\n     A    B    C"
+    puts  "     A    B    C  \n"
   end
 
   def print_grid
@@ -116,6 +116,7 @@ class Game
     print "\nPlease enter the letter and number of an open position: "
 
     position = get_formatted_position
+
     if valid_position_format?(position)
       if @grid[position] == 0
         @grid[position] = @player_mark
@@ -179,7 +180,8 @@ class Game
 
   def side_defense?
     corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
-    side_positions = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
+    side_positions   = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
+
     (@grid["b2"] == @cpu_mark) && (corner_positions.uniq.count == 2) && (side_positions.uniq.count == 3)
   end
 
