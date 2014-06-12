@@ -26,6 +26,20 @@ class Game
     @cpu_mark    = O
   end
 
+  def run
+    print_legend
+    until game_over?
+      player_input
+      print_grid
+      cpu_turn unless grid_full?
+      print_grid unless grid_full?
+    end
+    results
+    exit
+  end
+
+  private
+
   def print_legend
     puts "\n     A    B    C"
     puts
@@ -38,12 +52,6 @@ class Game
     puts "\n     A    B    C"
   end
 
-  def print_mark(value)
-    return "X" if value == X
-    return "O" if value == O
-    " "
-  end
-
   def print_grid
     puts "\n     A   B   C"
     puts
@@ -54,6 +62,54 @@ class Game
     print "3    " + print_mark(@grid["a3"]) + " | " + print_mark(@grid["b3"]) + " | " + print_mark(@grid["c3"])
     puts
     puts "\n     A   B   C"
+  end
+
+  def print_mark(value)
+    return "X" if value == X
+    return "O" if value == O
+    " "
+  end
+
+  def results
+    if win?(@player_mark)
+      puts "\nCongratulations! You win!\n\n"
+    elsif win?(@cpu_mark)
+      puts "\nYou lose. Really?\n\n"
+    else
+      puts "\nStalemate.\n\n"
+    end
+  end
+
+  def game_over?
+    grid_full? || win?(@player_mark) || win?(@cpu_mark)
+  end
+
+  def grid_empty?(position)
+    @grid[position] == 0
+  end
+
+  def vertical_win?(mark)
+    three_in_a_row?(mark, WIN_CONDITIONS[0]) || three_in_a_row?(mark, WIN_CONDITIONS[1]) || three_in_a_row?(mark, WIN_CONDITIONS[2])
+  end
+
+  def horizontal_win?(mark)
+    three_in_a_row?(mark, WIN_CONDITIONS[3]) || three_in_a_row?(mark, WIN_CONDITIONS[4]) || three_in_a_row?(mark, WIN_CONDITIONS[5])
+  end
+
+  def diagonal_win?(mark)
+    three_in_a_row?(mark, WIN_CONDITIONS[6]) || three_in_a_row?(mark, WIN_CONDITIONS[7])
+  end
+
+  def three_in_a_row?(mark, win_condition)
+    (@grid[win_condition[0]] == mark) && (@grid[win_condition[1]] == mark) && (@grid[win_condition[2]] == mark)
+  end
+
+  def win?(mark)
+    vertical_win?(mark) || horizontal_win?(mark) || diagonal_win?(mark)
+  end
+
+  def grid_full?
+    !@grid.has_value?(0)
   end
 
   def player_input
@@ -168,60 +224,6 @@ class Game
       end
     end
       return move
-  end
-
-  def grid_empty?(position)
-    @grid[position] == 0
-  end
-
-  def vertical_win?(mark)
-    three_in_a_row?(mark, WIN_CONDITIONS[0]) || three_in_a_row?(mark, WIN_CONDITIONS[1]) || three_in_a_row?(mark, WIN_CONDITIONS[2])
-  end
-
-  def horizontal_win?(mark)
-    three_in_a_row?(mark, WIN_CONDITIONS[3]) || three_in_a_row?(mark, WIN_CONDITIONS[4]) || three_in_a_row?(mark, WIN_CONDITIONS[5])
-  end
-
-  def diagonal_win?(mark)
-    three_in_a_row?(mark, WIN_CONDITIONS[6]) || three_in_a_row?(mark, WIN_CONDITIONS[7])
-  end
-
-  def three_in_a_row?(mark, win_condition)
-    (@grid[win_condition[0]] == mark) && (@grid[win_condition[1]] == mark) && (@grid[win_condition[2]] == mark)
-  end
-
-  def win?(mark)
-    vertical_win?(mark) || horizontal_win?(mark) || diagonal_win?(mark)
-  end
-
-  def grid_full?
-    !@grid.has_value?(0)
-  end
-
-  def game_over?
-    grid_full? || win?(@player_mark) || win?(@cpu_mark)
-  end
-
-  def run
-    print_legend
-    until game_over?
-      player_input
-      print_grid
-      cpu_turn unless grid_full?
-      print_grid unless grid_full?
-    end
-    results
-    exit
-  end
-
-  def results
-    if win?(@player_mark)
-      puts "\nCongratulations! You win!\n\n"
-    elsif win?(@cpu_mark)
-      puts "\nYou lose. Really?\n\n"
-    else
-      puts "\nStalemate.\n\n"
-    end
   end
 end
 
