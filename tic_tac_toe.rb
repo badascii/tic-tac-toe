@@ -6,14 +6,16 @@ class Game
           "a2" => 0, "b2" => 0, "c2" => 0,
           "a3" => 0, "b3" => 0, "c3" => 0 }
 
-  WIN_CONDITIONS = [["a1", "a2", "a3"], #   vertical win
-                    ["b1", "b2", "b3"], #   vertical win
-                    ["c1", "c2", "c3"], #   vertical win
-                    ["a1", "b1", "c1"], # horizontal win
-                    ["a2", "b2", "c2"], # horizontal win
-                    ["a3", "b3", "c3"], # horizontal win
-                    ["a1", "b2", "c3"], #   diagonal win
-                    ["a3", "b2", "c1"]] #   diagonal win
+  WIN_CONDITIONS = [
+  ["a1", "a2", "a3"], #   vertical win
+  ["b1", "b2", "b3"], #   vertical win
+  ["c1", "c2", "c3"], #   vertical win
+  ["a1", "b1", "c1"], # horizontal win
+  ["a2", "b2", "c2"], # horizontal win
+  ["a3", "b3", "c3"], # horizontal win
+  ["a1", "b2", "c3"], #   diagonal win
+  ["a3", "b2", "c1"]  #   diagonal win
+  ]
 
   def initialize
     puts "\nWelcome!"
@@ -37,11 +39,11 @@ class Game
   def print_mark(value)
     case value
     when X
-      return "X"
+      "X"
     when O
-      return "O"
+      "O"
     else
-      return " "
+      " "
     end
   end
 
@@ -107,7 +109,7 @@ class Game
       @grid.each do |key, value|
         if value == 0
           @grid[key] = @cpu_mark
-          return
+          break
         end
       end
     end
@@ -117,9 +119,9 @@ class Game
     corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
     side_positions = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
     if @grid["b2"] == @cpu_mark && corner_positions.uniq.count == 2 && side_positions.uniq.count == 3
-      return true
+      true
     end
-    return false
+    false
   end
 
   def opening_move
@@ -133,9 +135,9 @@ class Game
   # CPU check for player opening in 2 opposite corners
   def opposite_corners?
     if (@grid["a1"] == @player_mark && @grid["c3"] == @player_mark) || (@grid["a3"] == @player_mark && @grid["c1"] == @player_mark)
-      return true
+      true
     end
-    return false
+    false
   end
 
   # CPU defense against specific opening moves
@@ -165,31 +167,23 @@ class Game
         return move.first
       end
     end
-    return move
+      return move
   end
 
   def vertical_win?(mark)
-    return true if three_in_a_row?(mark, "a1", "a2", "a3")
-    return true if three_in_a_row?(mark, "b1", "b2", "b3")
-    return true if three_in_a_row?(mark, "c1", "c2", "c3")
-    return false
+    three_in_a_row?(mark, "a1", "a2", "a3") || three_in_a_row?(mark, "b1", "b2", "b3") || three_in_a_row?(mark, "c1", "c2", "c3")
   end
 
   def horizontal_win?(mark)
-    return true if three_in_a_row?(mark, "a1", "b1", "c1")
-    return true if three_in_a_row?(mark, "a2", "b2", "c2")
-    return true if three_in_a_row?(mark, "a3", "b3", "c3")
-    return false
+    three_in_a_row?(mark, "a1", "b1", "c1") || three_in_a_row?(mark, "a2", "b2", "c2") || three_in_a_row?(mark, "a3", "b3", "c3")
   end
 
   def diagonal_win?(mark)
-    return true if three_in_a_row?(mark, "a1", "b2", "c3")
-    return true if three_in_a_row?(mark, "a3", "b2", "c1")
-    return false
+    three_in_a_row?(mark, "a1", "b2", "c3") || three_in_a_row?(mark, "a3", "b2", "c1")
   end
 
   def three_in_a_row?(mark, position_1, position_2, position_3)
-    return true if @grid[position_1] == mark && @grid[position_2] == mark && @grid[position_3] == mark
+    @grid[position_1] == mark && @grid[position_2] == mark && @grid[position_3] == mark
   end
 
   def win?(mark)
@@ -197,13 +191,11 @@ class Game
   end
 
   def grid_full?
-    return false if @grid.has_value?(0)
-    return true
+    !@grid.has_value?(0)
   end
 
   def game_over?
-    return true if grid_full? || win?(@player_mark) || win?(@cpu_mark)
-    return false
+    grid_full? || win?(@player_mark) || win?(@cpu_mark)
   end
 
   def run
