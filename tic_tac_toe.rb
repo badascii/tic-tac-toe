@@ -4,14 +4,14 @@ class Game
   O = 2
 
   WIN_CONDITIONS = [
-  ["a1", "a2", "a3"], #   vertical win
-  ["b1", "b2", "b3"], #   vertical win
-  ["c1", "c2", "c3"], #   vertical win
-  ["a1", "b1", "c1"], # horizontal win
-  ["a2", "b2", "c2"], # horizontal win
-  ["a3", "b3", "c3"], # horizontal win
-  ["a1", "b2", "c3"], #   diagonal win
-  ["a3", "b2", "c1"]  #   diagonal win
+  ["a1", "a2", "a3"], #   vertical win 0
+  ["b1", "b2", "b3"], #   vertical win 1
+  ["c1", "c2", "c3"], #   vertical win 2
+  ["a1", "b1", "c1"], # horizontal win 3
+  ["a2", "b2", "c2"], # horizontal win 4
+  ["a3", "b3", "c3"], # horizontal win 5
+  ["a1", "b2", "c3"], #   diagonal win 6
+  ["a3", "b2", "c1"]  #   diagonal win 7
   ]
 
   POSITION_REGEX_REVERSE = /[1-3][abc]/
@@ -175,19 +175,19 @@ class Game
   end
 
   def vertical_win?(mark)
-    three_in_a_row?(mark, "a1", "a2", "a3") || three_in_a_row?(mark, "b1", "b2", "b3") || three_in_a_row?(mark, "c1", "c2", "c3")
+    three_in_a_row?(mark, WIN_CONDITIONS[0]) || three_in_a_row?(mark, WIN_CONDITIONS[1]) || three_in_a_row?(mark, WIN_CONDITIONS[2])
   end
 
   def horizontal_win?(mark)
-    three_in_a_row?(mark, "a1", "b1", "c1") || three_in_a_row?(mark, "a2", "b2", "c2") || three_in_a_row?(mark, "a3", "b3", "c3")
+    three_in_a_row?(mark, WIN_CONDITIONS[3]) || three_in_a_row?(mark, WIN_CONDITIONS[4]) || three_in_a_row?(mark, WIN_CONDITIONS[5])
   end
 
   def diagonal_win?(mark)
-    three_in_a_row?(mark, "a1", "b2", "c3") || three_in_a_row?(mark, "a3", "b2", "c1")
+    three_in_a_row?(mark, WIN_CONDITIONS[6]) || three_in_a_row?(mark, WIN_CONDITIONS[7])
   end
 
-  def three_in_a_row?(mark, position_1, position_2, position_3)
-    (@grid[position_1] == mark) && (@grid[position_2] == mark) && (@grid[position_3] == mark)
+  def three_in_a_row?(mark, win_condition)
+    (@grid[win_condition[0]] == mark) && (@grid[win_condition[1]] == mark) && (@grid[win_condition[2]] == mark)
   end
 
   def win?(mark)
