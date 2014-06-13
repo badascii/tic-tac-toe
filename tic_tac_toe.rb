@@ -29,7 +29,7 @@ class Game
   def run
     print_legend
     until game_over?
-      player_input
+      get_player_input
       print_grid
       cpu_turn unless grid_full?
       print_grid unless grid_full?
@@ -112,22 +112,29 @@ class Game
     !@grid.has_value?(0)
   end
 
-  def player_input
-    print "\nPlease enter the letter and number of an open position: "
-
-    position = get_formatted_position
-
-    if valid_position_format?(position)
-      if @grid[position] == 0
-        @grid[position] = @player_mark
+  def get_player_input
+    position = player_input_prompt
+    until valid_position_format?(position) && @grid[position] == 0
+      message = nil
+      if valid_position_format?(position)
+        message = "Invalid input. That position is taken."
       else
-        print "\nInvalid input. That position is taken.\n"
-        player_input
+        message = "Invalid input. That is not a valid position."
       end
-    else
-      print "\nInvalid input. That is not a valid position.\n"
-      player_input
+      position = player_input_prompt(message)
     end
+    @grid[position] = @player_mark
+  end
+
+  def player_input_prompt(error = nil)
+    puts
+    if error
+      puts error
+      puts
+    end
+    print "Please enter the letter and number of an open position: "
+    position = get_formatted_position
+    position
   end
 
   def get_formatted_position
