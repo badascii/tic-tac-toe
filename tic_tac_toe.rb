@@ -14,7 +14,7 @@ class Game
   ["a3", "b2", "c1"]  #   diagonal win 7
   ]
 
-  POSITION_REGEX         = /([abc][1-3])|/
+  POSITION_REGEX         = /[abc][1-3]/
   POSITION_REGEX_REVERSE = /[1-3][abc]/
 
   def initialize
