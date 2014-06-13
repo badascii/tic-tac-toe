@@ -84,8 +84,12 @@ class Game
     grid_full? || win?(@player_mark) || win?(@cpu_mark)
   end
 
-  def grid_empty?(position)
-    @grid[position] == 0
+  def grid_full?
+    !@grid.has_value?(0)
+  end
+
+  def win?(mark)
+    vertical_win?(mark) || horizontal_win?(mark) || diagonal_win?(mark)
   end
 
   def vertical_win?(mark)
@@ -104,12 +108,8 @@ class Game
     (@grid[win_condition[0]] == mark) && (@grid[win_condition[1]] == mark) && (@grid[win_condition[2]] == mark)
   end
 
-  def win?(mark)
-    vertical_win?(mark) || horizontal_win?(mark) || diagonal_win?(mark)
-  end
-
-  def grid_full?
-    !@grid.has_value?(0)
+  def position_empty?(position)
+    @grid[position] == 0
   end
 
   def get_player_input
@@ -170,10 +170,35 @@ class Game
     puts "\nCPU turn:\n"
   end
 
+  def cpu_check_for_win(mark)
+    move = nil
+    WIN_CONDITIONS.each do |condition|
+      occupied_spaces = []
+      open_space = false
+      condition.each do |position|
+        open_space = true if position_empty?(position)
+        occupied_spaces << position if @grid[position] == mark
+      end
+      if occupied_spaces.length == 2 && open_space == true
+        move = condition - occupied_spaces
+        return move.first
+      end
+    end
+      return move
+  end
+
+  def opening_move
+    if position_empty?("b2")
+      @grid["b2"] = @cpu_mark
+    else
+      @grid["a1"] = @cpu_mark
+    end
+  end
+
   def optimal_move
-    if grid_empty?("b1") && grid_empty?("b3")
+    if position_empty?("b1") && position_empty?("b3")
       @grid["b1"] = @cpu_mark
-    elsif grid_empty?("a2") && grid_empty?("c2")
+    elsif position_empty?("a2") && position_empty?("c2")
       @grid["c2"] = @cpu_mark
     else
       @grid.each do |key, value|
@@ -183,26 +208,6 @@ class Game
         end
       end
     end
-  end
-
-  def side_defense?
-    corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
-    side_positions   = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
-
-    (@grid["b2"] == @cpu_mark) && (corner_positions.uniq.count == 2) && (side_positions.uniq.count == 3)
-  end
-
-  def opening_move
-    if grid_empty?("b2")
-      @grid["b2"] = @cpu_mark
-    else
-      @grid["a1"] = @cpu_mark
-    end
-  end
-
-  # CPU check for player opening in 2 opposite corners
-  def opposite_corners?
-    (@grid["a1"] == @player_mark && @grid["c3"] == @player_mark) || (@grid["a3"] == @player_mark && @grid["c1"] == @player_mark)
   end
 
   # CPU defense against specific opening moves
@@ -218,21 +223,16 @@ class Game
     end
   end
 
-  def cpu_check_for_win(mark)
-    move = nil
-    WIN_CONDITIONS.each do |condition|
-      occupied_spaces = []
-      open_space = false
-      condition.each do |position|
-        open_space = true if grid_empty?(position)
-        occupied_spaces << position if @grid[position] == mark
-      end
-      if occupied_spaces.length == 2 && open_space == true
-        move = condition - occupied_spaces
-        return move.first
-      end
-    end
-      return move
+  def side_defense?
+    corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
+    side_positions   = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
+
+    (@grid["b2"] == @cpu_mark) && (corner_positions.uniq.count == 2) && (side_positions.uniq.count == 3)
+  end
+
+  # CPU check for player opening in 2 opposite corners
+  def opposite_corners?
+    (@grid["a1"] == @player_mark && @grid["c3"] == @player_mark) || (@grid["a3"] == @player_mark && @grid["c1"] == @player_mark)
   end
 end
 
