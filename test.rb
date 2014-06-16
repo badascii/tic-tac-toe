@@ -1,3 +1,4 @@
+require './tic_tac_toe.rb'
 require 'minitest/autorun'
 
 class TestGame < MiniTest::Unit::TestCase
@@ -12,9 +13,10 @@ class TestGame < MiniTest::Unit::TestCase
   def test_grid
     @grid["a1"] = 1
     assert @grid.class == Hash
-    assert @grid["a1"] = 1
+    assert @grid["a1"] == 1
   end
 
-  def test_player_input
+  def test_marks
+    assert_not_equal @player_mark, @cpu_mark
   end
 end
