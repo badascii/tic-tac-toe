@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 
-class TestGame
+class TestGame < MiniTest::Unit::TestCase
   def setup
     @grid = {"a1" => 0, "b1" => 0, "c1" => 0,
              "a2" => 0, "b2" => 0, "c2" => 0,
@@ -10,7 +10,9 @@ class TestGame
   end
 
   def test_grid
+    @grid["a1"] = 1
     assert @grid.class == Hash
+    assert @grid["a1"] = 1
   end
 
   def test_player_input
