@@ -38,7 +38,7 @@ class Game
     exit
   end
 
-  private
+  #  private
 
   def print_legend
     puts  "     A    B    C  \n"
@@ -235,7 +235,3 @@ class Game
     (@grid["a1"] == @player_mark && @grid["c3"] == @player_mark) || (@grid["a3"] == @player_mark && @grid["c1"] == @player_mark)
   end
 end
-
-game = Game.new
-
-game.run
