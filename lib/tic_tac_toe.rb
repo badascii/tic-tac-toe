@@ -18,7 +18,6 @@ class Game
   POSITION_REGEX_REVERSE = /[1-3][abc]/
 
   def initialize
-    puts "\nWelcome!"
     @grid = {"a1" => 0, "b1" => 0, "c1" => 0,
              "a2" => 0, "b2" => 0, "c2" => 0,
              "a3" => 0, "b3" => 0, "c3" => 0 }
@@ -27,6 +26,7 @@ class Game
   end
 
   def run
+    puts "\nWelcome!"
     print_legend
     until game_over?
       get_player_input
