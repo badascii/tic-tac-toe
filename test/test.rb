@@ -7,8 +7,9 @@ class TestGame < MiniTest::Unit::TestCase
   end
 
   def test_grid
-    assert_equal(@grid.class, Hash)
-    assert_equal(@grid["a1"], 1)
+    @game.grid["a1"] = 1
+    assert_equal(@game.grid.class, Hash)
+    assert_equal(@game.grid["a1"], 1)
   end
 
   def test_marks

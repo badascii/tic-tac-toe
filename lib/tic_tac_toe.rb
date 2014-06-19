@@ -17,10 +17,12 @@ class Game
   POSITION_REGEX         = /[abc][1-3]/
   POSITION_REGEX_REVERSE = /[1-3][abc]/
 
+  attr_reader :grid, :player_mark, :cpu_mark
+
   def initialize
     @grid = {"a1" => 0, "b1" => 0, "c1" => 0,
              "a2" => 0, "b2" => 0, "c2" => 0,
-             "a3" => 0, "b3" => 0, "c3" => 0 }
+             "a3" => 0, "b3" => 0, "c3" => 0}
     @player_mark = X
     @cpu_mark    = O
   end
