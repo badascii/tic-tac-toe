@@ -37,7 +37,7 @@ class TestGame < MiniTest::Unit::TestCase
   def test_grid_full
     assert(@game.grid_full? == false)
 
-    # This block fills the grid with moves
+    # This code block fills the grid with moves
     @game.grid.keys.each do |position|
       @game.grid[position] = 1
     end
