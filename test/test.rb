@@ -29,12 +29,19 @@ class TestGame < MiniTest::Unit::TestCase
   end
 
   def test_position_empty
-    assert @game.position_empty?("a1") == true
-    assert @game.position_empty?("b2") == true
-    assert @game.position_empty?("c3") == true
+    assert(@game.position_empty?("a1") == true)
+    assert(@game.position_empty?("b2") == true)
+    assert(@game.position_empty?("c3") == true)
   end
 
   def test_grid_full
-    assert @game.grid_full? == false
+    assert(@game.grid_full? == false)
+
+    # This block fills the grid with moves
+    @game.grid.keys.each do |position|
+      @game.grid[position] = 1
+    end
+
+    assert(@game.grid_full? == true)
   end
 end
