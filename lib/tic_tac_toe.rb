@@ -17,7 +17,7 @@ class Game
   POSITION_REGEX         = /[abc][1-3]/
   POSITION_REGEX_REVERSE = /[1-3][abc]/
 
-  attr_reader :grid, :player_mark, :cpu_mark
+  attr_accessor :grid, :player_mark, :cpu_mark
 
   def initialize
     @grid = {"a1" => 0, "b1" => 0, "c1" => 0,
@@ -128,7 +128,7 @@ class Game
     @grid[position] = @player_mark
   end
 
-  def player_input_prompt(error = nil)
+  def player_input_prompt(error=nil)
     puts
     if error
       puts error
