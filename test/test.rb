@@ -44,4 +44,11 @@ class TestGame < MiniTest::Unit::TestCase
 
     assert(@game.grid_full? == true)
   end
+
+  def test_results
+    @game.grid.keys.each do |position|
+      @game.grid[position] = @player_mark
+    end
+    assert_equal(@game.results, "\nCongratulations! You win!\n\n")
+  end
 end
