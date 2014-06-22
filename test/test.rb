@@ -53,8 +53,8 @@ class TestGame < MiniTest::Unit::TestCase
   end
 
   def test_cpu_opening_move
-    assert_equal(@game.grid.opening_move, 0)
+    assert_equal(@game.opening_move, 0)
     @game.opening_move
-    assert_equal(@game.grid.opening_move, @cpu_mark)
+    assert_equal(@game.opening_move, @cpu_mark)
   end
 end
