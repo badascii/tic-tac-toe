@@ -51,4 +51,10 @@ class TestGame < MiniTest::Unit::TestCase
     end
     assert_equal(@game.results, "\nCongratulations! You win!\n\n")
   end
+
+  def test_cpu_opening_move
+    assert_equal(@game.grid.opening_move, 0)
+    @game.opening_move
+    assert_equal(@game.grid.opening_move, @cpu_mark)
+  end
 end
