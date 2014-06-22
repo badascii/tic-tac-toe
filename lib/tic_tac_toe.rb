@@ -220,7 +220,7 @@ class Game
       @grid["b1"] = @cpu_mark
     elsif @grid["b3"] == 0
       @grid["b3"] == @cpu_mark
-    elsif @grid["b2"] == 0
+    elsif @grid["c2"] == 0
       @grid["c2"] == @cpu_mark
     end
   end

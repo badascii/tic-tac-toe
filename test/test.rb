@@ -55,6 +55,8 @@ class TestGame < MiniTest::Unit::TestCase
     assert_equal(@game.grid["b2"], 0)
     @game.opening_move
     assert_equal(@game.grid["b2"], @game.cpu_mark)
+    @game.opening_move
+    assert_equal(@game.grid["a1"], @game.cpu_mark)
   end
 
   def test_cpu_optimal_move
@@ -67,9 +69,20 @@ class TestGame < MiniTest::Unit::TestCase
     @game.grid["b2"] = @game.player_mark
     @game.grid["b3"] = @game.player_mark
     assert_equal(@game.grid["c2"], @game.cpu_mark)
-#    if position_empty?("b1") && position_empty?("b3")
- #     @grid["b1"] = @cpu_mark
-  #  elsif position_empty?("a2") && position_empty?("c2")
   end
 
+  def test_cpu_place_side_defense
+    assert_equal(@game.grid["a2"], 0)
+    @game.place_side_defense
+    assert_equal(@game.grid["a2"], @game.cpu_mark)
+    assert_equal(@game.grid["b1"], 0)
+    @game.place_side_defense
+    assert_equal(@game.grid["b1"], @game.cpu_mark)
+    assert_equal(@game.grid["b3"], 0)
+    @game.place_side_defense
+    assert_equal(@game.grid["b3"], @game.cpu_mark)
+    assert_equal(@game.grid["c2"], 0)
+    @game.place_side_defense
+    assert_equal(@game.grid["c2"], @game.cpu_mark)
+  end
 end
