@@ -66,9 +66,9 @@ class Game
     puts "\n     A   B   C"
   end
 
-  def print_mark(value)
-    return "X" if value == X
-    return "O" if value == O
+  def print_mark(position)
+    return "X" if position == X
+    return "O" if position == O
     " "
   end
 
