@@ -29,32 +29,36 @@ class TestGame < MiniTest::Unit::TestCase
   end
 
   def test_position_empty
-    assert(@game.position_empty?("a1") == true)
-    assert(@game.position_empty?("b2") == true)
-    assert(@game.position_empty?("c3") == true)
+    assert(@game.position_empty?("a1"))
+    assert(@game.position_empty?("b2"))
+    assert(@game.position_empty?("c3"))
   end
 
   def test_grid_full
-    assert(@game.grid_full? == false)
+    assert(!@game.grid_full?)
 
     # This code block fills the grid with moves
     @game.grid.keys.each do |position|
       @game.grid[position] = 1
     end
-
-    assert(@game.grid_full? == true)
+    assert(@game.grid_full?)
   end
 
-  def test_results
+  def test_win
     @game.grid.keys.each do |position|
-      @game.grid[position] = @player_mark
+      @game.grid[position] = @game.player_mark
     end
-    assert_equal(@game.results, "\nCongratulations! You win!\n\n")
+    assert(@game.win?(@game.player_mark))
   end
 
   def test_cpu_opening_move
-    assert_equal(@game.opening_move, 0)
+    assert_equal(@game.grid["b2"], 0)
     @game.opening_move
-    assert_equal(@game.opening_move, @cpu_mark)
+    assert_equal(@game.grid["b2"], @game.cpu_mark)
+  end
+
+  def test_cpu_optimal_move
+    @game.optimal_move
+    assert_equal(@game.grid["b1"], @game.cpu_mark)
   end
 end
