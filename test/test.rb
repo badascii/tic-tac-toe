@@ -86,7 +86,7 @@ class TestGame < MiniTest::Unit::TestCase
     assert_equal(@game.grid["c2"], @game.cpu_mark)
   end
 
-  def test_side_defense
+  def test_cpu_side_defense
     assert(!@game.side_defense?)
     @game.grid["a1"] = @game.player_mark
     @game.grid["a2"] = @game.player_mark
@@ -94,4 +94,10 @@ class TestGame < MiniTest::Unit::TestCase
     @game.grid["b2"] = @game.cpu_mark
     assert(@game.side_defense?)
   end
+
+  def test_cpu_opposite_corners
+    assert(!@game.opposite_corners?)
+    @game.grid["a1"] == @game.player_mark
+    @game.grid["c3"] == @game.player_mark
+    assert(@game.opposite_corners?)
 end
