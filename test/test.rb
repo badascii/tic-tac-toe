@@ -95,9 +95,17 @@ class TestGame < MiniTest::Unit::TestCase
     assert(@game.side_defense?)
   end
 
-  def test_cpu_opposite_corners
+  def test_cpu_opposite_corners_1
     assert(!@game.opposite_corners?)
     @game.grid["a1"] == @game.player_mark
     @game.grid["c3"] == @game.player_mark
     assert(@game.opposite_corners?)
+  end
+
+  def test_cpu_opposite_corners_2
+    assert(!@game.opposite_corners?)
+    @game.grid["a3"] == @game.player_mark
+    @game.grid["c1"] == @game.player_mark
+    assert(@game.opposite_corners?)
+  end
 end
