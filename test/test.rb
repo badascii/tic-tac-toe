@@ -51,7 +51,7 @@ class TestGame < MiniTest::Unit::TestCase
     assert(@game.win?(@game.player_mark))
   end
 
-  def test_three_in_a_row
+  def test_three_in_a_row_player
     assert(!@game.three_in_a_row?(@player_mark, ["a1", "a2", "a3"]))
     @game.grid["a1"] = @player_mark
     @game.grid["a2"] = @player_mark
@@ -78,6 +78,35 @@ class TestGame < MiniTest::Unit::TestCase
     @game.grid["c3"] = @player_mark
     assert(@game.three_in_a_row?(@player_mark, ["a3", "b3", "c3"]))
   end
+
+  def test_three_in_a_row_cpu
+    assert(!@game.three_in_a_row?(@player_mark, ["a1", "a2", "a3"]))
+    @game.grid["a1"] = @cpu_mark
+    @game.grid["a2"] = @cpu_mark
+    @game.grid["a3"] = @cpu_mark
+    assert(@game.three_in_a_row?(@cpu_mark, ["a1", "a2", "a3"]))
+    @game.grid["b1"] = @cpu_mark
+    @game.grid["b2"] = @cpu_mark
+    @game.grid["b3"] = @cpu_mark
+    assert(@game.three_in_a_row?(@cpu_mark, ["b1", "b2", "b3"]))
+    @game.grid["c1"] = @cpu_mark
+    @game.grid["c2"] = @cpu_mark
+    @game.grid["c3"] = @cpu_mark
+    assert(@game.three_in_a_row?(@cpu_mark, ["c1", "c2", "c3"]))
+    @game.grid["a1"] = @cpu_mark
+    @game.grid["b1"] = @cpu_mark
+    @game.grid["c1"] = @cpu_mark
+    assert(@game.three_in_a_row?(@cpu_mark, ["a1", "b1", "c1"]))
+    @game.grid["a2"] = @cpu_mark
+    @game.grid["b2"] = @cpu_mark
+    @game.grid["c2"] = @cpu_mark
+    assert(@game.three_in_a_row?(@cpu_mark, ["a2", "b2", "c2"]))
+    @game.grid["a3"] = @cpu_mark
+    @game.grid["b3"] = @cpu_mark
+    @game.grid["c3"] = @cpu_mark
+    assert(@game.three_in_a_row?(@cpu_mark, ["a3", "b3", "c3"]))
+  end
+
 
   def test_cpu_opening_move
     assert_equal(@game.grid["b2"], 0)
