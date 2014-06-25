@@ -51,6 +51,17 @@ class TestGame < MiniTest::Unit::TestCase
     assert(@game.win?(@game.player_mark))
   end
 
+  def test_vertical_win
+    @game.grid["a1"] = @player_mark
+    @game.grid["a2"] = @player_mark
+    @game.grid["a3"] = @player_mark
+    vertical_win?(@player_mark)
+    @game.grid["b1"] = @cpu_mark
+    @game.grid["b2"] = @cpu_mark
+    @game.grid["b3"] = @cpu_mark
+    vertical_win?(@cpu_mark)
+  end
+
   def test_three_in_a_row_player
     assert(!@game.three_in_a_row?(@player_mark, ["a1", "a2", "a3"]))
     @game.grid["a1"] = @player_mark
