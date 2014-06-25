@@ -80,7 +80,7 @@ class TestGame < MiniTest::Unit::TestCase
   end
 
   def test_three_in_a_row_cpu
-    assert(!@game.three_in_a_row?(@player_mark, ["a1", "a2", "a3"]))
+    assert(!@game.three_in_a_row?(@cpu_mark, ["a1", "a2", "a3"]))
     @game.grid["a1"] = @cpu_mark
     @game.grid["a2"] = @cpu_mark
     @game.grid["a3"] = @cpu_mark
