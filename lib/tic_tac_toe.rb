@@ -162,6 +162,8 @@ class Game
       @grid[win] = @cpu_mark
     elsif loss
       @grid[loss] = @cpu_mark
+    elsif corner_defense?
+      place_corner_defense
     elsif side_defense?
       place_side_defense
     elsif opposite_corners?
@@ -209,6 +211,23 @@ class Game
           break
         end
       end
+    end
+  end
+
+  def corner_defense?
+    side_positions = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
+    side_positions.count(0) == 1
+  end
+
+  def place_corner_defense
+    if @grid["a1"] == 0
+      @grid["a1"] = @cpu_mark
+    elsif @grid["c1"] == 0
+      @grid["c1"] = @cpu_mark
+    elsif @grid["a3"] == 0
+      @grid["a3"] = @cpu_mark
+    elsif @grid["c3"] == 0
+      @grid["c3"] = @cpu_mark
     end
   end
 
