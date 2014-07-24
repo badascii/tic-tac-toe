@@ -212,6 +212,12 @@ class Game
     end
   end
 
+  def side_defense?
+    corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
+    side_positions   = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
+    (@grid["b2"] == @cpu_mark) && (corner_positions.uniq.count == 2) && (side_positions.uniq.count == 3)
+  end
+
   # CPU defense against specific opening moves
   def place_side_defense
     if @grid["a2"] == 0
@@ -219,17 +225,10 @@ class Game
     elsif @grid["b1"] == 0
       @grid["b1"] = @cpu_mark
     elsif @grid["b3"] == 0
-      @grid["b3"] == @cpu_mark
+      @grid["b3"] = @cpu_mark
     elsif @grid["c2"] == 0
-      @grid["c2"] == @cpu_mark
+      @grid["c2"] = @cpu_mark
     end
-  end
-
-  def side_defense?
-    corner_positions = [@grid["a1"], @grid["a3"], @grid["c1"], @grid["c3"]]
-    side_positions   = [@grid["a2"], @grid["b1"], @grid["b3"], @grid["c2"]]
-
-    (@grid["b2"] == @cpu_mark) && (corner_positions.uniq.count == 2) && (side_positions.uniq.count == 3)
   end
 
   # CPU check for player opening in 2 opposite corners
